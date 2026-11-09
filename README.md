@@ -3,7 +3,12 @@
 > 用一台 Mac、一个 1.7B 的本地语音模型，把中文稿子做成可以订阅的播客。
 > 全离线 · 零边际成本 · 约 200 行 Python。
 
-**[收听第 01 期](https://happydl.github.io/local-podcast-studio/)** · **[RSS](https://happydl.github.io/local-podcast-studio/feed.xml)**
+**[收听第 01 期](https://happydl.github.io/local-podcast-studio/)** · **[第 02 期](https://happydl.github.io/local-podcast-studio/ep02.html)** · **[RSS](https://happydl.github.io/local-podcast-studio/feed.xml)**
+
+| 期 | 主题 | 时长 | 数据 |
+|---|---|---|---|
+| 01 | 一台 Mac 做中文播客：本地语音合成的实测账本 | 09:43 | 2.48× 实时，RTF 0.404 |
+| 02 | 同一句话，两次生成差 40%：语速抖动实测 | 05:04 | 24 次合成，CV 26.5% / 15.0% / 10.6% |
 
 ---
 
@@ -12,12 +17,12 @@
 | 指标 | 数值 |
 |---|---|
 | 文稿 | 2128 字（50 段合成单元） |
-| 音频时长 | 9 分 29 秒（568.9 s） |
-| 合成耗时 | 3 分 46 秒（226.4 s） |
-| 等效速度 | **2.51× 实时** |
-| 实时率 RTF（逐段） | 平均 0.404，区间 0.385 – 0.433 |
-| 语速 | 224 字/分钟音频 |
-| 电费 | **< ¥0.01**（40 W × 226 s ≈ 2.5 Wh） |
+| 音频时长 | 9 分 43 秒（582.7 s） |
+| 合成耗时 | 3 分 55 秒（235.4 s） |
+| 等效速度 | **2.48× 实时** |
+| 实时率 RTF（逐段） | 平均 0.404，区间 0.397 – 0.451 |
+| 语速 | 219 字/分钟音频 |
+| 电费 | **< ¥0.01**（40 W × 235 s ≈ 2.6 Wh） |
 | 云端调用 | 0 次 |
 
 模型：`Qwen3-TTS-12Hz-1.7B-VoiceDesign`（8-bit），MLX 推理，24 kHz 单声道。
@@ -32,6 +37,24 @@
 
 **结论：省钱不是理由（差额只有一块钱），改稿自由才是。**
 商用按字符计费会改变你的写作习惯；本地重跑一百遍也不要钱。
+
+## 核心发现：语速抖动比想象中大
+
+同一段文字、同一音色描述，重复合成 8 次（[`experiment/pacing.json`](experiment/pacing.json)）：
+
+| 文本长度 | 平均时长 | 变异系数 | 极差 | 语速区间 |
+|---|---:|---:|---:|---:|
+| 15 字 | 4.91 s | **26.5%** | 90.8% | 114 – 262 字/分 |
+| 41 字 | 11.26 s | 15.0% | 47.5% | 164 – 254 字/分 |
+| 98 字 | 24.52 s | 10.6% | 35.2% | 198 – 278 字/分 |
+
+→ **句子越短越不稳**。对策：① 合并到 40 字以上再合成；② 每段采样 2–3 次择优（极差 33% → 10%）；③ 整期设目标语速，偏离 ±15% 重跑。
+
+```bash
+# 三次采样，取语速最接近 220 字/分的一次
+python3 scripts/tts_pipeline.py --script episodes/ep02/script_zh.txt \
+    --out audio/ep02 --samples 3 --target-cpm 220
+```
 
 ## 快速开始
 
@@ -66,6 +89,8 @@ scripts/make_feed.py      # 生成 iTunes 规范的 feed.xml
 scripts/make_cover.py     # 用真实波形生成 1400×1400 封面
 scripts/build_site.py     # 文章 Markdown → 单页站点
 scripts/make_chapters.py  # 由逐段耗时反推章节时间轴
+scripts/experiment_pacing.py  # 语速抖动实验（24 次合成）
+experiment/pacing.json    # 实验原始记录
 episodes/ep01/            # 朗读稿、成品音频、逐段实测数据
 article/                  # 长文（本站首页）
 ```

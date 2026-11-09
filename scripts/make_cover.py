@@ -29,7 +29,17 @@ def load_wave(path: Path) -> np.ndarray:
 
 
 def main() -> int:
-    wav, out = Path(sys.argv[1]), Path(sys.argv[2])
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("wav")
+    ap.add_argument("out")
+    ap.add_argument("--episode", default="EPISODE 01")
+    ap.add_argument("--title", default="一台 Mac\n做中文播客")
+    ap.add_argument("--subtitle", default="本地语音合成的实测账本")
+    ap.add_argument("--stats", nargs="*", default=["2.5×|实时速度", "¥0.03|整期电费", "0|云端调用"],
+                    help="形如 值|标签，最多 3 组")
+    args = ap.parse_args()
+    wav, out = Path(args.wav), Path(args.out)
     samples, rate = load_wave(wav)
     img = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(img)
@@ -48,22 +58,22 @@ def main() -> int:
                             fill=(32, 52, 46) if i % 2 else (25, 40, 36))
 
     # 顶部小字
-    d.text((80, 88), "LOCAL  ·  TTS  ·  EPISODE 01", font=font(FONT_MONO, 28), fill=ACCENT)
+    d.text((80, 88), "LOCAL  ·  TTS  ·  " + args.episode, font=font(FONT_MONO, 28), fill=ACCENT)
 
     # 标题
-    title = "一台 Mac\n做中文播客"
+    title = args.title
     y = 168
     for line in title.split("\n"):
         d.text((80, y), line, font=font(FONT_BOLD, 118), fill=TEXT)
         y += 142
 
-    sub = "本地语音合成的实测账本"
+    sub = args.subtitle
     d.text((80, y + 16), sub, font=font(FONT_BOLD, 56), fill=ACCENT)
 
     # 数据条
     y2 = 940
     d.line([80, y2 - 48, W - 80, y2 - 48], fill=(52, 60, 66), width=2)
-    stats = [("2.5×", "实时速度"), ("<¥0.01", "整期电费"), ("0", "云端调用")]
+    stats = [tuple(s.split("|", 1)) for s in args.stats][:3]
     for i, (big, label) in enumerate(stats):
         x = 80 + i * 420
         d.text((x, y2), big, font=font(FONT_MONO, 86), fill=TEXT)

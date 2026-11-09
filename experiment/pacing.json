@@ -1,0 +1,192 @@
+{
+  "voice": "成年男性，低沉清晰，标准普通话，语速适中偏慢，不要夸张的播音腔，像在认真讲一件事，句子之间留一点呼吸感。",
+  "repeats": 8,
+  "items": {
+    "short_24": {
+      "chars": 15,
+      "runs": [
+        {
+          "run": 0,
+          "raw_seconds": 5.68,
+          "trimmed_seconds": 5.305,
+          "gen_seconds": 2.36
+        },
+        {
+          "run": 1,
+          "raw_seconds": 5.52,
+          "trimmed_seconds": 4.347,
+          "gen_seconds": 2.26
+        },
+        {
+          "run": 2,
+          "raw_seconds": 6.32,
+          "trimmed_seconds": 5.56,
+          "gen_seconds": 2.57
+        },
+        {
+          "run": 3,
+          "raw_seconds": 3.76,
+          "trimmed_seconds": 3.429,
+          "gen_seconds": 1.57
+        },
+        {
+          "run": 4,
+          "raw_seconds": 4.56,
+          "trimmed_seconds": 3.869,
+          "gen_seconds": 1.88
+        },
+        {
+          "run": 5,
+          "raw_seconds": 4.72,
+          "trimmed_seconds": 4.366,
+          "gen_seconds": 1.94
+        },
+        {
+          "run": 6,
+          "raw_seconds": 10.32,
+          "trimmed_seconds": 7.885,
+          "gen_seconds": 4.14
+        },
+        {
+          "run": 7,
+          "raw_seconds": 5.2,
+          "trimmed_seconds": 4.499,
+          "gen_seconds": 2.14
+        }
+      ],
+      "duration_mean": 4.907,
+      "duration_sd": 1.298,
+      "duration_cv": 0.2646,
+      "duration_min": 3.429,
+      "duration_max": 7.885,
+      "spread_pct": 90.8,
+      "chars_per_min_mean": 194.2,
+      "chars_per_min_min": 114.1,
+      "chars_per_min_max": 262.5
+    },
+    "mid_45": {
+      "chars": 41,
+      "runs": [
+        {
+          "run": 0,
+          "raw_seconds": 15.84,
+          "trimmed_seconds": 15.047,
+          "gen_seconds": 6.29
+        },
+        {
+          "run": 1,
+          "raw_seconds": 12.56,
+          "trimmed_seconds": 12.409,
+          "gen_seconds": 5.01
+        },
+        {
+          "run": 2,
+          "raw_seconds": 10.4,
+          "trimmed_seconds": 10.257,
+          "gen_seconds": 4.17
+        },
+        {
+          "run": 3,
+          "raw_seconds": 12.16,
+          "trimmed_seconds": 11.954,
+          "gen_seconds": 4.85
+        },
+        {
+          "run": 4,
+          "raw_seconds": 10.08,
+          "trimmed_seconds": 9.97,
+          "gen_seconds": 4.04
+        },
+        {
+          "run": 5,
+          "raw_seconds": 11.12,
+          "trimmed_seconds": 10.238,
+          "gen_seconds": 4.45
+        },
+        {
+          "run": 6,
+          "raw_seconds": 11.44,
+          "trimmed_seconds": 10.505,
+          "gen_seconds": 4.57
+        },
+        {
+          "run": 7,
+          "raw_seconds": 10.08,
+          "trimmed_seconds": 9.699,
+          "gen_seconds": 4.04
+        }
+      ],
+      "duration_mean": 11.26,
+      "duration_sd": 1.691,
+      "duration_cv": 0.1501,
+      "duration_min": 9.699,
+      "duration_max": 15.047,
+      "spread_pct": 47.5,
+      "chars_per_min_mean": 222.8,
+      "chars_per_min_min": 163.5,
+      "chars_per_min_max": 253.6
+    },
+    "long_90": {
+      "chars": 98,
+      "runs": [
+        {
+          "run": 0,
+          "raw_seconds": 26.88,
+          "trimmed_seconds": 26.707,
+          "gen_seconds": 10.68
+        },
+        {
+          "run": 1,
+          "raw_seconds": 21.2,
+          "trimmed_seconds": 21.118,
+          "gen_seconds": 8.44
+        },
+        {
+          "run": 2,
+          "raw_seconds": 23.76,
+          "trimmed_seconds": 23.665,
+          "gen_seconds": 9.27
+        },
+        {
+          "run": 3,
+          "raw_seconds": 22.8,
+          "trimmed_seconds": 22.737,
+          "gen_seconds": 8.84
+        },
+        {
+          "run": 4,
+          "raw_seconds": 25.44,
+          "trimmed_seconds": 25.287,
+          "gen_seconds": 9.85
+        },
+        {
+          "run": 5,
+          "raw_seconds": 25.28,
+          "trimmed_seconds": 24.778,
+          "gen_seconds": 9.8
+        },
+        {
+          "run": 6,
+          "raw_seconds": 30.16,
+          "trimmed_seconds": 29.744,
+          "gen_seconds": 11.7
+        },
+        {
+          "run": 7,
+          "raw_seconds": 22.32,
+          "trimmed_seconds": 22.147,
+          "gen_seconds": 8.67
+        }
+      ],
+      "duration_mean": 24.523,
+      "duration_sd": 2.594,
+      "duration_cv": 0.1058,
+      "duration_min": 21.118,
+      "duration_max": 29.744,
+      "spread_pct": 35.2,
+      "chars_per_min_mean": 242.3,
+      "chars_per_min_min": 197.7,
+      "chars_per_min_max": 278.4
+    }
+  }
+}

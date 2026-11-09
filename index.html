@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>一台 Mac 做中文播客：本地语音合成的实测账本</title>
-<meta name="description" content="本地语音合成实测：2112 字中文稿 → 10 分钟播客，2.7 倍实时，零云端调用。">
+<meta name="description" content="本地语音合成实测：2128 字中文稿 → 10 分钟播客，2.5 倍实时，零云端调用。">
 <meta property="og:title" content="一台 Mac 做中文播客：本地语音合成的实测账本">
 <meta property="og:image" content="https://happydl.github.io/local-podcast-studio/cover.jpg">
 <link rel="alternate" type="application/rss+xml" title="本地优先 Local First" href="feed.xml">
@@ -21,11 +21,11 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap { max-width:760px; margin:0 auto; padding:56px 22px 96px; }
-  .hero { display:flex; gap:28px; align-items:center; margin-bottom:40px; }
+  .hero { display:flex; gap:28px; align-items:center; margin-bottom:28px; }
   .hero img { width:148px; height:148px; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.5); }
   .kicker { font:12px/1.4 ui-monospace,Menlo,monospace; letter-spacing:.18em;
             text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
-  h1 { font-size:30px; line-height:1.35; margin:0 0 10px; letter-spacing:-.01em; }
+  h1 { font-size:29px; line-height:1.35; margin:0 0 10px; letter-spacing:-.01em; }
   h2 { font-size:22px; margin:52px 0 14px; padding-top:8px; }
   h3 { font-size:17px; margin:30px 0 8px; color:#cfd8df; }
   p, li { color:#d8dee3; }
@@ -33,11 +33,11 @@
   a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(86,208,168,.3); }
   a:hover { border-color:var(--accent); }
   blockquote { margin:26px 0; padding:16px 20px; background:var(--panel);
-                border-left:3px solid var(--accent); border-radius:6px; color:var(--muted); }
+                border-left:3px solid var(--accent); border-radius:6px; }
   blockquote p { margin:0; color:#b9c3ca; }
   table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14.5px; }
   th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
-  th { color:var(--muted); font-weight:600; font-size:13px; letter-spacing:.02em; }
+  th { color:var(--muted); font-weight:600; font-size:13px; }
   tr:hover td { background:#141a1e; }
   code { font:13.5px/1.6 ui-monospace,Menlo,monospace; background:#1b2227;
           padding:2px 6px; border-radius:5px; color:#a9e8cf; }
@@ -46,17 +46,25 @@
   pre code { background:none; padding:0; color:#cfe6dc; font-size:13px; }
   hr { border:none; border-top:1px solid var(--line); margin:44px 0; }
   .player { background:var(--panel); border:1px solid var(--line); border-radius:14px;
-             padding:18px 20px; margin:0 0 44px; }
+             padding:18px 20px; margin:0 0 20px; }
   .player .label { font:12px/1.4 ui-monospace,Menlo,monospace; color:var(--muted);
                     letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
   audio { width:100%; }
   .meta { color:var(--muted); font-size:14px; }
+  .eplist { border-top:1px solid var(--line); margin:28px 0 40px; }
+  .eplist h3 { font:12px/1.4 ui-monospace,Menlo,monospace; letter-spacing:.16em;
+                color:var(--muted); margin:18px 0 10px; text-transform:uppercase; }
+  .eplist a { display:flex; gap:14px; align-items:baseline; padding:11px 0;
+               border-bottom:1px solid var(--line); color:#d8dee3; border-radius:0; }
+  .eplist a:hover { color:#fff; }
+  .eplist .no { font:12px ui-monospace,Menlo,monospace; color:var(--accent); min-width:22px; }
+  .eplist .dur { margin-left:auto; font:12px ui-monospace,Menlo,monospace; color:var(--muted); }
   footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--line);
             color:var(--muted); font-size:13.5px; }
   @media (max-width:620px) {
     .hero { flex-direction:column; align-items:flex-start; gap:18px; }
     .hero img { width:110px; height:110px; }
-    h1 { font-size:24px; }
+    h1 { font-size:23px; }
     .wrap { padding:32px 18px 72px; }
   }
 </style>
@@ -73,7 +81,7 @@
   </div>
 
   <div class="player">
-    <div class="label">本期音频 · 本机生成 · 10 分 16 秒</div>
+    <div class="label">本期音频 09:43 · 本机生成</div>
     <audio controls preload="metadata" src="ep01.m4a"></audio>
     <p class="meta" style="margin:10px 0 0">
       订阅：<a href="feed.xml">RSS</a> ·
@@ -81,7 +89,14 @@
     </p>
   </div>
 
-  <h2>0. 三条结论（先说，再验）</h2>
+  <nav class="eplist"><h3>全部节目</h3><a href="ep01.html"><span class="no">01</span><span>一台 Mac 做中文播客：本地语音合成的实测账本 ·</span><span class="dur">09:43</span></a><a href="ep02.html"><span class="no">02</span><span>同一句话，两次生成差 40%：语音合成的语速抖动实测</span><span class="dur">05:04</span></a></nav>
+
+  <blockquote>
+<p>2026-11-10 · 实测于 Apple Silicon（M1 Max / 64 GB）· 全离线，零云端调用
+配套音频：<a href="ep01/ep01.m4a">第 01 期</a>（9 分 43 秒，本机生成）
+代码：<a href="tts_pipeline.py">tts_pipeline.py</a></p>
+</blockquote>
+<h2>0. 三条结论（先说，再验）</h2>
 <ol>
 <li><strong>本地中文 TTS 已经越过&quot;能用&quot;的门槛</strong>：2128 字稿子 → 9 分 43 秒音频，合成耗时 3 分 55 秒，<strong>2.48 倍实时</strong>，实时率（RTF）50 段全部落在 0.40 附近，最快最慢只差 14%。</li>
 <li><strong>省钱不是理由</strong>：同样两千字，国内商用 TTS 约 0.6–1.1 元，本地电费不到 1 分钱——但绝对差额只有一块钱。为省钱去部署本地模型，投入产出比为负。</li>
@@ -254,7 +269,7 @@
 分句生成再拼接，每句音量有细微差异，拼起来像剪辑粗糙的录音。必须做一次统一的峰值归一/限幅，否则听众三分钟内就会关掉。</p>
 <p>结论：<strong>真正的工作量不在&quot;生成&quot;，而在缝补</strong>。这四件事做完，一期节目才算能听。</p>
 <h2>6. 实现：120 行代码的流水线</h2>
-<p>核心只有五步。完整脚本见 <a href="scripts/tts_pipeline.py"><code>scripts/tts_pipeline.py</code></a>。</p>
+<p>核心只有五步。完整脚本见 <a href="tts_pipeline.py"><code>scripts/tts_pipeline.py</code></a>。</p>
 <pre><code class="language-python"># 1) 切句：按段落分组，按句末标点切
 sentences = re.split(r&quot;(?&lt;=[。！？；])&quot;, block)
 
@@ -359,7 +374,7 @@ python3 scripts/tts_pipeline.py \
 
   <footer>
     本页与本期音频由同一套本地流水线生成：文稿 → 切句 → 本地 TTS → 拼接 → RSS。
-    数据为本机实测，原始逐段记录见 <a href="episodes/ep01/ep01.report.json">ep01.report.json</a>。
+    数据为本机实测，原始记录见 <a href="episodes/01/ep01.report.json">ep01.report.json</a>。
   </footer>
 </main>
 </body>

@@ -117,6 +117,10 @@ def main() -> int:
     ap.add_argument("--reassemble", action="store_true",
                     help="不重新合成，改用缓存的分段音频重新拼接（改停顿/裁剪时用）")
     ap.add_argument("--cache-dir", default="", help="分段音频缓存目录，默认 <out>_segs")
+    ap.add_argument("--samples", type=int, default=1,
+                    help="每段合成次数，取语速最接近目标的一次（默认 1，建议 2–3）")
+    ap.add_argument("--target-cpm", type=float, default=220.0,
+                    help="目标语速（字/分钟），用于在多次采样中择优")
     args = ap.parse_args()
 
     out_base = Path(args.out)
@@ -153,18 +157,34 @@ def main() -> int:
                 pieces.append(np.zeros(int(rate * gap), dtype=np.float32))
             continue
 
-        audio, gen = synth(text, args.voice)
-        seg_path.write_bytes(audio)
-        samples, r = read_wav(audio)
+        best = None
+        for si in range(max(1, args.samples)):
+            cand_path = seg_path if si == 0 else cache / f"seg_{i:03d}_s{si}.wav"
+            if args.reassemble and cand_path.exists():
+                audio, gen = cand_path.read_bytes(), 0.0
+            else:
+                audio, gen = synth(text, args.voice)
+                cand_path.write_bytes(audio)
+            c_samples, r = read_wav(audio)
+            c_trim = trim_silence(c_samples, r)
+            c_dur = len(c_trim) / r
+            c_cpm = len(text) / c_dur * 60
+            wall += gen
+            score = abs(c_cpm - args.target_cpm)
+            if best is None or score < best[0]:
+                best = (score, c_trim, r, c_dur, c_cpm, gen, len(c_samples) / r)
+            if args.samples > 1:
+                print(f"    采样 {si + 1}/{args.samples}: {c_dur:.2f}s "
+                      f"({c_cpm:.0f} 字/分，偏离 {score:.0f})", flush=True)
+        _, samples, r, dur_trim, cpm, gen1, dur_raw = best
         rate = r
-        dur = len(samples) / r
-        wall += gen
-        samples = trim_silence(samples, r)
-        rows.append({"index": i, "chars": len(text), "audio_seconds": round(len(samples) / r, 2),
-                     "gen_seconds": round(gen, 2), "rtf": round(gen / dur, 3),
-                     "raw_seconds": round(dur, 2)})
-        print(f"[{i}/{len(units)}] {len(text)}字 → {dur:.1f}s 音频，裁剪后 {len(samples) / r:.1f}s，"
-              f"耗时 {gen:.1f}s (RTF {gen / dur:.2f})", flush=True)
+        dur = dur_raw
+        rows.append({"index": i, "chars": len(text), "audio_seconds": round(dur_trim, 2),
+                     "gen_seconds": round(gen1, 2), "rtf": round(gen1 / dur, 3),
+                     "raw_seconds": round(dur, 2), "chars_per_min": round(cpm, 1),
+                     "samples": max(1, args.samples)})
+        print(f"[{i}/{len(units)}] {len(text)}字 → {dur:.1f}s 音频，裁剪后 {dur_trim:.1f}s，"
+              f"{cpm:.0f} 字/分，耗时 {gen1:.1f}s (RTF {gen1 / dur:.2f})", flush=True)
         pieces.append(samples)
         # 句间/段间停顿（最后一段不加）
         if i < len(units):

@@ -21,5 +21,14 @@
       <itunes:duration>00:09:43</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
+    <item>
+      <title>同一句话，两次生成差 40%：语音合成的语速抖动实测</title>
+      <description>同一句话，两次生成差 40%：语音合成的语速抖动实测</description>
+      <enclosure url="https://happydl.github.io/local-podcast-studio/ep02.m4a" length="1247227" type="audio/mp4"/>
+      <guid isPermaLink="false">https://happydl.github.io/local-podcast-studio/ep02.m4a</guid>
+      <pubDate>Mon, 09 Nov 2026 19:28:27 +0000</pubDate>
+      <itunes:duration>00:05:04</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
   </channel>
 </rss>

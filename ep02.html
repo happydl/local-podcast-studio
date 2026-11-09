@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>同一句话，两次生成差 40%：语音合成的语速抖动实测</title>
+<meta name="description" content="本地语音合成实测：2128 字中文稿 → 10 分钟播客，2.5 倍实时，零云端调用。">
+<meta property="og:title" content="同一句话，两次生成差 40%：语音合成的语速抖动实测">
+<meta property="og:image" content="https://happydl.github.io/local-podcast-studio/cover.jpg">
+<link rel="alternate" type="application/rss+xml" title="本地优先 Local First" href="feed.xml">
+<style>
+  :root {
+    --bg:#0f1215; --panel:#161b1f; --text:#e9edf0; --muted:#9aa4ad;
+    --accent:#56d0a8; --line:#232b31;
+  }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body {
+    margin:0; color:var(--text); background:var(--bg);
+    font:16px/1.85 -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:760px; margin:0 auto; padding:56px 22px 96px; }
+  .hero { display:flex; gap:28px; align-items:center; margin-bottom:28px; }
+  .hero img { width:148px; height:148px; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.5); }
+  .kicker { font:12px/1.4 ui-monospace,Menlo,monospace; letter-spacing:.18em;
+            text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
+  h1 { font-size:29px; line-height:1.35; margin:0 0 10px; letter-spacing:-.01em; }
+  h2 { font-size:22px; margin:52px 0 14px; padding-top:8px; }
+  h3 { font-size:17px; margin:30px 0 8px; color:#cfd8df; }
+  p, li { color:#d8dee3; }
+  strong { color:#fff; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(86,208,168,.3); }
+  a:hover { border-color:var(--accent); }
+  blockquote { margin:26px 0; padding:16px 20px; background:var(--panel);
+                border-left:3px solid var(--accent); border-radius:6px; }
+  blockquote p { margin:0; color:#b9c3ca; }
+  table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14.5px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; font-size:13px; }
+  tr:hover td { background:#141a1e; }
+  code { font:13.5px/1.6 ui-monospace,Menlo,monospace; background:#1b2227;
+          padding:2px 6px; border-radius:5px; color:#a9e8cf; }
+  pre { background:#11171b; border:1px solid var(--line); border-radius:10px;
+         padding:16px 18px; overflow:auto; }
+  pre code { background:none; padding:0; color:#cfe6dc; font-size:13px; }
+  hr { border:none; border-top:1px solid var(--line); margin:44px 0; }
+  .player { background:var(--panel); border:1px solid var(--line); border-radius:14px;
+             padding:18px 20px; margin:0 0 20px; }
+  .player .label { font:12px/1.4 ui-monospace,Menlo,monospace; color:var(--muted);
+                    letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+  audio { width:100%; }
+  .meta { color:var(--muted); font-size:14px; }
+  .eplist { border-top:1px solid var(--line); margin:28px 0 40px; }
+  .eplist h3 { font:12px/1.4 ui-monospace,Menlo,monospace; letter-spacing:.16em;
+                color:var(--muted); margin:18px 0 10px; text-transform:uppercase; }
+  .eplist a { display:flex; gap:14px; align-items:baseline; padding:11px 0;
+               border-bottom:1px solid var(--line); color:#d8dee3; border-radius:0; }
+  .eplist a:hover { color:#fff; }
+  .eplist .no { font:12px ui-monospace,Menlo,monospace; color:var(--accent); min-width:22px; }
+  .eplist .dur { margin-left:auto; font:12px ui-monospace,Menlo,monospace; color:var(--muted); }
+  footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--line);
+            color:var(--muted); font-size:13.5px; }
+  @media (max-width:620px) {
+    .hero { flex-direction:column; align-items:flex-start; gap:18px; }
+    .hero img { width:110px; height:110px; }
+    h1 { font-size:23px; }
+    .wrap { padding:32px 18px 72px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="hero">
+    <img src="cover_ep02.jpg" alt="封面">
+    <div>
+      <p class="kicker">Local First · Episode 02</p>
+      <h1>同一句话，两次生成差 40%：语音合成的语速抖动实测</h1>
+      <p class="meta">2026-11-10 · Apple Silicon M1 Max · 全离线 · 0 次云端调用</p>
+    </div>
+  </div>
+
+  <div class="player">
+    <div class="label">本期音频 05:04 · 本机生成</div>
+    <audio controls preload="metadata" src="ep02.m4a"></audio>
+    <p class="meta" style="margin:10px 0 0">
+      订阅：<a href="feed.xml">RSS</a> ·
+      代码：<a href="scripts/tts_pipeline.py">tts_pipeline.py</a>
+    </p>
+  </div>
+
+  <nav class="eplist"><h3>全部节目</h3><a href="ep01.html"><span class="no">01</span><span>一台 Mac 做中文播客：本地语音合成的实测账本</span><span class="dur">09:43</span></a><a href="ep02.html"><span class="no">02</span><span>同一句话，两次生成差 40%：语音合成的语速抖动实测 ·</span><span class="dur">05:04</span></a></nav>
+
+  <blockquote>
+<p>2026-11-10 · 第 02 期配套文 · 24 次合成实验
+音频：<a href="ep02/ep02.m4a">第 02 期</a>（5 分 04 秒）· 原始数据：<a href="pacing.json">pacing.json</a></p>
+</blockquote>
+<h2>结论</h2>
+<ol>
+<li><strong>句子越短，语速越不稳</strong>：15 字的句子，8 次生成长度从 3.43 s 到 7.89 s（极差 91%）；98 字的句子极差 35%。</li>
+<li><strong>这不是模型的&quot;缺陷&quot;，是采样的随机性</strong>：每次生成都在重新决定停顿位置与拖音长度，越短的文本里这些随机项占比越大。</li>
+<li><strong>三次采样择优能把抖动压到 10% 以内</strong>，代价是 3 倍算力——对一期 10 分钟节目，就是从 4 分钟变成 12 分钟。</li>
+</ol>
+<h2>实验设计</h2>
+<table>
+<thead>
+<tr>
+  <th>项</th>
+  <th>设置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>文本</td>
+  <td>3 段：15 字 / 41 字 / 98 字</td>
+</tr>
+<tr>
+  <td>重复</td>
+  <td>每段 8 次，共 24 次合成</td>
+</tr>
+<tr>
+  <td>音色描述</td>
+  <td>24 次完全相同（&quot;成年男性，低沉清晰，标准普通话，语速适中偏慢……&quot;）</td>
+</tr>
+<tr>
+  <td>预处理</td>
+  <td>每段首尾静音裁剪（-38 dB，保留 60 ms）后计时</td>
+</tr>
+<tr>
+  <td>环境</td>
+  <td>M1 Max / 64 GB，Qwen3-TTS-1.7B VoiceDesign 8-bit，MLX，24 kHz</td>
+</tr>
+</tbody>
+</table>
+<h2>数据</h2>
+<table>
+<thead>
+<tr>
+  <th>文本</th>
+  <th style="text-align:right">字数</th>
+  <th style="text-align:right">平均时长</th>
+  <th style="text-align:right">标准差</th>
+  <th style="text-align:right">变异系数 CV</th>
+  <th style="text-align:right">最短</th>
+  <th style="text-align:right">最长</th>
+  <th style="text-align:right">极差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>短</td>
+  <td style="text-align:right">15</td>
+  <td style="text-align:right">4.91 s</td>
+  <td style="text-align:right">1.30 s</td>
+  <td style="text-align:right"><strong>26.5%</strong></td>
+  <td style="text-align:right">3.43 s</td>
+  <td style="text-align:right">7.89 s</td>
+  <td style="text-align:right"><strong>90.8%</strong></td>
+</tr>
+<tr>
+  <td>中</td>
+  <td style="text-align:right">41</td>
+  <td style="text-align:right">11.26 s</td>
+  <td style="text-align:right">1.69 s</td>
+  <td style="text-align:right">15.0%</td>
+  <td style="text-align:right">9.70 s</td>
+  <td style="text-align:right">15.05 s</td>
+  <td style="text-align:right">47.5%</td>
+</tr>
+<tr>
+  <td>长</td>
+  <td style="text-align:right">98</td>
+  <td style="text-align:right">24.52 s</td>
+  <td style="text-align:right">2.59 s</td>
+  <td style="text-align:right">10.6%</td>
+  <td style="text-align:right">21.12 s</td>
+  <td style="text-align:right">29.74 s</td>
+  <td style="text-align:right">35.2%</td>
+</tr>
+</tbody>
+</table>
+<p>换算成语速：</p>
+<table>
+<thead>
+<tr>
+  <th>文本</th>
+  <th style="text-align:right">平均语速</th>
+  <th style="text-align:right">最快</th>
+  <th style="text-align:right">最慢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>短（15 字）</td>
+  <td style="text-align:right">194 字/分</td>
+  <td style="text-align:right">262 字/分</td>
+  <td style="text-align:right">114 字/分</td>
+</tr>
+<tr>
+  <td>中（41 字）</td>
+  <td style="text-align:right">223 字/分</td>
+  <td style="text-align:right">254 字/分</td>
+  <td style="text-align:right">164 字/分</td>
+</tr>
+<tr>
+  <td>长（98 字）</td>
+  <td style="text-align:right">242 字/分</td>
+  <td style="text-align:right">278 字/分</td>
+  <td style="text-align:right">198 字/分</td>
+</tr>
+</tbody>
+</table>
+<p><strong>最短那一段的语速可以差出 2.3 倍。</strong> 同一句话，一次像赶时间，一次像在拖时间。</p>
+<h2>这在成片里是什么样子</h2>
+<p>回看第 01 期（50 段真实数据）：</p>
+<table>
+<thead>
+<tr>
+  <th>指标</th>
+  <th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>语速区间</td>
+  <td>174 – 293 字/分</td>
+</tr>
+<tr>
+  <td>平均</td>
+  <td>234 字/分</td>
+</tr>
+<tr>
+  <td>变异系数</td>
+  <td>12.8%</td>
+</tr>
+</tbody>
+</table>
+<p>听众说不出哪里不对，但会觉得&quot;这个人一会儿赶、一会儿拖&quot;。连听十分钟，就是&quot;状态不稳&quot;。</p>
+<p><strong>决定&quot;能不能连续听&quot;的不是音色像不像人，是节奏的一致性。</strong></p>
+<h2>三个解法（按性价比排序）</h2>
+<h3>1. 别把句子切太碎（零成本）</h3>
+<p>实验里 20 字以下的段落是抖动重灾区（CV 26.5%）。实践上应把句子<strong>合并到 40 字以上</strong>再合成——宁可一次多念两句。这也解释了第 01 期里 CV 12.8% 的来源：那期有 14 段不足 30 字。</p>
+<h3>2. 采样择优（2–3 倍算力）</h3>
+<p>同一段生成 k 次，保留&quot;语速最接近目标&quot;的一次。用上面 24 次真实数据做 400 轮模拟（每次模拟 6 段）：</p>
+<table>
+<thead>
+<tr>
+  <th>k</th>
+  <th style="text-align:right">短文本极差</th>
+  <th style="text-align:right">中文本极差</th>
+  <th style="text-align:right">长文本极差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1（不择优）</td>
+  <td style="text-align:right">59.7%</td>
+  <td style="text-align:right">33.4%</td>
+  <td style="text-align:right">25.5%</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td style="text-align:right">34.4%</td>
+  <td style="text-align:right">17.7%</td>
+  <td style="text-align:right">16.3%</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td style="text-align:right"><strong>20.6%</strong></td>
+  <td style="text-align:right"><strong>9.9%</strong></td>
+  <td style="text-align:right"><strong>11.6%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>已实现为流水线参数：</p>
+<pre><code class="language-bash">python3 scripts/tts_pipeline.py --script episodes/ep02/script_zh.txt \
+    --out audio/ep02 --samples 3 --target-cpm 220
+</code></pre>
+<p>每次都打印候选的语速与偏离值，便于人工复核：</p>
+<pre><code>    采样 1/2: 4.27s (225 字/分，偏离 5)
+    采样 2/2: 3.71s (259 字/分，偏离 39)
+[1/2] 16字 → 裁剪后 4.3s，225 字/分
+</code></pre>
+<h3>3. 给整期设一个目标语速，超差就重跑（工程化）</h3>
+<p>偏离目标 ±15% 就重跑。规则简单，但它把&quot;随机&quot;变成&quot;可验收&quot;：你有了明确的通过标准，而不是靠耳朵赌。</p>
+<h2>局限（必须说清）</h2>
+<ul>
+<li>单机、单音色、每种长度 8 次，<strong>样本小</strong>；跨模型/跨音色的结论需要另测。</li>
+<li>语速只是&quot;节奏&quot;的一个代理指标；停顿分布、句尾语调没有量化。</li>
+<li>择优策略会<strong>系统性偏向更快的语速</strong>（目标设为均值时，慢样本被淘汰）——需要按节目调性校准 <code>--target-cpm</code>。</li>
+</ul>
+<h2>复现</h2>
+<pre><code class="language-bash">python3 scripts/experiment_pacing.py     # 24 次合成 ≈ 2 分钟
+cat experiment/pacing.json               # 逐次时长 + 统计量
+</code></pre>
+<hr />
+<p><em>数据来自本机实测，脚本与原始记录在仓库内。第 03 期会用&quot;合并短句 + 三次择优&quot;重做一期，对比听感与语速分布。</em></p>
+
+
+  <footer>
+    本页与本期音频由同一套本地流水线生成：文稿 → 切句 → 本地 TTS → 拼接 → RSS。
+    数据为本机实测，原始记录见 <a href="episodes/02/ep02.report.json">ep02.report.json</a>。
+  </footer>
+</main>
+</body>
+</html>
