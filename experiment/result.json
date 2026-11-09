@@ -1,0 +1,33 @@
+{
+  "texts": [
+    "这一集我想聊第三种可能。",
+    "机器是一台苹果芯片的笔记本，内存六十四 G。",
+    "第一次测速，五十四个字的句子，生成了十点六秒音频。",
+    "真正值得本地跑的理由，是另外三条。",
+    "第一是无限次重来，稿子改一个字，就重新生成一遍。",
+    "第三是可控性，语速和停顿都能用自然语言去调。",
+    "工具能解决的是摩擦，不是品质。",
+    "今天就到这里，晚安。"
+  ],
+  "ref": "ref/cand_0.wav",
+  "ref_text": "这段话用来确定音色，之后所有内容都用同一个声音来读，听起来才像同一个人。",
+  "voice_design": {
+    "name": "voice_design",
+    "segments": 8,
+    "pairwise_mean": 0.9645,
+    "pairwise_min": 0.9443,
+    "pairwise_p10": 0.9515,
+    "to_centroid_mean": 0.9843,
+    "to_centroid_min": 0.9802
+  },
+  "voice_clone": {
+    "name": "voice_clone",
+    "segments": 8,
+    "pairwise_mean": 0.9911,
+    "pairwise_min": 0.9846,
+    "pairwise_p10": 0.9863,
+    "to_centroid_mean": 0.9961,
+    "to_centroid_min": 0.9922
+  },
+  "cross_mean": 0.9721
+}

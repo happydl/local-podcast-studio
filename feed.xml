@@ -15,19 +15,28 @@
     <item>
       <title>一台 Mac 做中文播客：本地语音合成的实测账本</title>
       <description>一台 Mac 做中文播客：本地语音合成的实测账本</description>
-      <enclosure url="https://happydl.github.io/local-podcast-studio/ep01.m4a" length="2391185" type="audio/mp4"/>
+      <enclosure url="https://happydl.github.io/local-podcast-studio/ep01.m4a" length="2154721" type="audio/mp4"/>
       <guid isPermaLink="false">https://happydl.github.io/local-podcast-studio/ep01.m4a</guid>
-      <pubDate>Mon, 09 Nov 2026 19:17:35 +0000</pubDate>
-      <itunes:duration>00:09:43</itunes:duration>
+      <pubDate>Mon, 09 Nov 2026 20:08:17 +0000</pubDate>
+      <itunes:duration>00:08:45</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
       <title>同一句话，两次生成差 40%：语音合成的语速抖动实测</title>
       <description>同一句话，两次生成差 40%：语音合成的语速抖动实测</description>
-      <enclosure url="https://happydl.github.io/local-podcast-studio/ep02.m4a" length="1247227" type="audio/mp4"/>
+      <enclosure url="https://happydl.github.io/local-podcast-studio/ep02.m4a" length="1173053" type="audio/mp4"/>
       <guid isPermaLink="false">https://happydl.github.io/local-podcast-studio/ep02.m4a</guid>
-      <pubDate>Mon, 09 Nov 2026 19:28:27 +0000</pubDate>
-      <itunes:duration>00:05:04</itunes:duration>
+      <pubDate>Mon, 09 Nov 2026 20:08:17 +0000</pubDate>
+      <itunes:duration>00:04:47</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>为什么你的 AI 播客像换了个人：音色漂移的根因与修复</title>
+      <description>为什么你的 AI 播客像换了个人：音色漂移的根因与修复</description>
+      <enclosure url="https://happydl.github.io/local-podcast-studio/ep03.m4a" length="1217581" type="audio/mp4"/>
+      <guid isPermaLink="false">https://happydl.github.io/local-podcast-studio/ep03.m4a</guid>
+      <pubDate>Mon, 09 Nov 2026 20:08:17 +0000</pubDate>
+      <itunes:duration>00:04:57</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
   </channel>

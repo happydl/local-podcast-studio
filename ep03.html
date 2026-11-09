@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>为什么你的 AI 播客像换了个人：音色漂移的根因与修复</title>
+<meta name="description" content="本地语音合成实测：2128 字中文稿 → 10 分钟播客，2.5 倍实时，零云端调用。">
+<meta property="og:title" content="为什么你的 AI 播客像换了个人：音色漂移的根因与修复">
+<meta property="og:image" content="https://happydl.github.io/local-podcast-studio/cover.jpg">
+<link rel="alternate" type="application/rss+xml" title="本地优先 Local First" href="feed.xml">
+<style>
+  :root {
+    --bg:#0f1215; --panel:#161b1f; --text:#e9edf0; --muted:#9aa4ad;
+    --accent:#56d0a8; --line:#232b31;
+  }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body {
+    margin:0; color:var(--text); background:var(--bg);
+    font:16px/1.85 -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:760px; margin:0 auto; padding:56px 22px 96px; }
+  .hero { display:flex; gap:28px; align-items:center; margin-bottom:28px; }
+  .hero img { width:148px; height:148px; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.5); }
+  .kicker { font:12px/1.4 ui-monospace,Menlo,monospace; letter-spacing:.18em;
+            text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
+  h1 { font-size:29px; line-height:1.35; margin:0 0 10px; letter-spacing:-.01em; }
+  h2 { font-size:22px; margin:52px 0 14px; padding-top:8px; }
+  h3 { font-size:17px; margin:30px 0 8px; color:#cfd8df; }
+  p, li { color:#d8dee3; }
+  strong { color:#fff; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(86,208,168,.3); }
+  a:hover { border-color:var(--accent); }
+  blockquote { margin:26px 0; padding:16px 20px; background:var(--panel);
+                border-left:3px solid var(--accent); border-radius:6px; }
+  blockquote p { margin:0; color:#b9c3ca; }
+  table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14.5px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; font-size:13px; }
+  tr:hover td { background:#141a1e; }
+  code { font:13.5px/1.6 ui-monospace,Menlo,monospace; background:#1b2227;
+          padding:2px 6px; border-radius:5px; color:#a9e8cf; }
+  pre { background:#11171b; border:1px solid var(--line); border-radius:10px;
+         padding:16px 18px; overflow:auto; }
+  pre code { background:none; padding:0; color:#cfe6dc; font-size:13px; }
+  hr { border:none; border-top:1px solid var(--line); margin:44px 0; }
+  .player { background:var(--panel); border:1px solid var(--line); border-radius:14px;
+             padding:18px 20px; margin:0 0 20px; }
+  .player .label { font:12px/1.4 ui-monospace,Menlo,monospace; color:var(--muted);
+                    letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+  audio { width:100%; }
+  .meta { color:var(--muted); font-size:14px; }
+  .eplist { border-top:1px solid var(--line); margin:28px 0 40px; }
+  .eplist h3 { font:12px/1.4 ui-monospace,Menlo,monospace; letter-spacing:.16em;
+                color:var(--muted); margin:18px 0 10px; text-transform:uppercase; }
+  .eplist a { display:flex; gap:14px; align-items:baseline; padding:11px 0;
+               border-bottom:1px solid var(--line); color:#d8dee3; border-radius:0; }
+  .eplist a:hover { color:#fff; }
+  .eplist .no { font:12px ui-monospace,Menlo,monospace; color:var(--accent); min-width:22px; }
+  .eplist .dur { margin-left:auto; font:12px ui-monospace,Menlo,monospace; color:var(--muted); }
+  footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--line);
+            color:var(--muted); font-size:13.5px; }
+  @media (max-width:620px) {
+    .hero { flex-direction:column; align-items:flex-start; gap:18px; }
+    .hero img { width:110px; height:110px; }
+    h1 { font-size:23px; }
+    .wrap { padding:32px 18px 72px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="hero">
+    <img src="cover_ep03.jpg" alt="封面">
+    <div>
+      <p class="kicker">Local First · Episode 03</p>
+      <h1>为什么你的 AI 播客像换了个人：音色漂移的根因与修复</h1>
+      <p class="meta">2026-11-10 · Apple Silicon M1 Max · 全离线 · 0 次云端调用</p>
+    </div>
+  </div>
+
+  <div class="player">
+    <div class="label">本期音频 04:57 · 本机生成</div>
+    <audio controls preload="metadata" src="ep03.m4a"></audio>
+    <p class="meta" style="margin:10px 0 0">
+      订阅：<a href="feed.xml">RSS</a> ·
+      代码：<a href="scripts/tts_pipeline.py">tts_pipeline.py</a>
+    </p>
+  </div>
+
+  <nav class="eplist"><h3>全部节目</h3><a href="ep01.html"><span class="no">01</span><span>一台 Mac 做中文播客：本地语音合成的实测账本</span><span class="dur">08:45</span></a><a href="ep02.html"><span class="no">02</span><span>同一句话，两次生成差 40%：语音合成的语速抖动实测</span><span class="dur">04:47</span></a><a href="ep03.html"><span class="no">03</span><span>为什么你的 AI 播客像换了个人：音色漂移的根因与修复 ·</span><span class="dur">04:57</span></a></nav>
+
+  <blockquote>
+<p>2026-11-10 · 第 03 期配套文 · 一次真实的 bug 修复记录
+起因：第 01 期发布后收到的第一条反馈——「句子之间音色不一致」</p>
+</blockquote>
+<h2>TL;DR</h2>
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th>修复前（VoiceDesign）</th>
+  <th>修复后（Base + 克隆 + 择优）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>段间说话人相似度（两两均值）</td>
+  <td>0.9768</td>
+  <td><strong>0.9911</strong></td>
+</tr>
+<tr>
+  <td>最低一对相似度</td>
+  <td>0.9393</td>
+  <td><strong>0.9691</strong></td>
+</tr>
+<tr>
+  <td>与质心相似度（最低段）</td>
+  <td>0.9720</td>
+  <td><strong>0.9818</strong></td>
+</tr>
+<tr>
+  <td>语速变异系数</td>
+  <td>12.8%</td>
+  <td><strong>7.9%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>根因不是&quot;模型不好&quot;，而是<strong>用错了模型</strong>：VoiceDesign 权重没有 speaker encoder，每次请求都从文字描述重新采样一个声音——50 段就是 50 次独立采样。</p>
+<h2>1. 为什么&quot;传了参考音频&quot;没用</h2>
+<p>VoiceDesign 权重的 <code>config.json</code> 里 <code>tts_model_type = voice_design</code>，<code>speaker_encoder_config</code> 为 <code>None</code>。而代码里取参考音频的路径是：</p>
+<pre><code class="language-python">speaker_embed = None
+if ref_audio is not None and self.speaker_encoder is not None:   # ← 这里是 None
+    speaker_embed = self.extract_speaker_embedding(ref_audio)
+</code></pre>
+<p>也就是说：<strong>传 <code>ref_audio</code> 不会报错，会被静默忽略</strong>。这是我最初踩的坑——以为钉住了音色，其实没有。</p>
+<h2>2. 怎么把&quot;像不像同一个人&quot;变成可测的数</h2>
+<p>Base 权重自带说话人编码器（ECAPA-TDNN，2048 维）。把每段音频压成一个向量，算两两余弦相似度：</p>
+<pre><code class="language-python">emb = model.extract_speaker_embedding(mx.array(segment)[None, :])
+sim = cosine(emb_a, emb_b)   # 1.0 = 同一个人，0.9 以下人耳通常能察觉
+</code></pre>
+<p>对已发布的第 01 期（50 段，按报告时长精确切回）测量：</p>
+<table>
+<thead>
+<tr>
+  <th>指标</th>
+  <th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>两两相似度 均值</td>
+  <td>0.9768</td>
+</tr>
+<tr>
+  <td>两两相似度 最低</td>
+  <td><strong>0.9393</strong></td>
+</tr>
+<tr>
+  <td>与质心相似度 最低</td>
+  <td>0.9720</td>
+</tr>
+<tr>
+  <td>基频中位数</td>
+  <td>107 Hz（区间 88–140 Hz）</td>
+</tr>
+</tbody>
+</table>
+<p>最差的几段集中在 33–46 字的中等长度段落，以及 6–10 字的短句。</p>
+<p><strong>口语结论：最低那一对 0.939，足够让听众觉得&quot;这句换了个人&quot;。</strong></p>
+<h2>3. 修复：换权重 + 克隆 + 择优</h2>
+<h3>3.1 换 Base 权重做 ICL 克隆</h3>
+<pre><code class="language-python">for result in model.generate(
+    text=segment, ref_audio=&quot;ref.wav&quot;, ref_text=&quot;参考音频的逐字稿&quot;,
+    lang_code=&quot;chinese&quot;, stream=False,
+):
+    ...
+</code></pre>
+<p>50 段共享同一个音色锚点，而不是 50 次独立采样。</p>
+<h3>3.2 每段采样 3 次，按说话人相似度择优</h3>
+<pre><code class="language-bash">python3 scripts/tts_clone.py --script episodes/ep01/script_zh.txt \
+    --out audio/ep01 --ref ref/cand_1.wav --ref-text &quot;...&quot; \
+    --samples 3 --select speaker
+</code></pre>
+<p>每段生成 3 个候选，用 ECAPA 向量和参考音色的余弦相似度排序，取最高的一段；语速偏离目标 ±35% 的候选直接淘汰。代价是 3 倍算力（一期 10 分钟节目约 11 分钟），对这个场景完全不敏感。</p>
+<h3>3.3 逐段响度归一 + 首尾淡入淡出</h3>
+<p>这一步容易被忽略，但对&quot;听起来像同一个人&quot;贡献很大：</p>
+<pre><code class="language-python">rms = np.sqrt(np.mean(a ** 2))
+a = a * (TARGET_RMS / rms)          # 每段统一到 -21 dBFS
+a[:n] *= ramp; a[-n:] *= ramp[::-1]  # 12 ms 淡入淡出，消除拼接爆音
+</code></pre>
+<p>不同段落的电平差 2–3 dB，人耳就会读成&quot;忽远忽近&quot;，进而怀疑&quot;是不是换了人&quot;。</p>
+<h2>4. 结果</h2>
+<table>
+<thead>
+<tr>
+  <th>指标</th>
+  <th>修复前</th>
+  <th>修复后</th>
+  <th>变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>说话人相似度（两两均值）</td>
+  <td>0.9768</td>
+  <td>0.9911</td>
+  <td>+0.014</td>
+</tr>
+<tr>
+  <td>说话人相似度（最低）</td>
+  <td>0.9393</td>
+  <td>0.9691</td>
+  <td><strong>+0.030</strong></td>
+</tr>
+<tr>
+  <td>与质心相似度（最低）</td>
+  <td>0.9720</td>
+  <td>0.9818</td>
+  <td>+0.010</td>
+</tr>
+<tr>
+  <td>语速 CV</td>
+  <td>12.8%</td>
+  <td>7.9%</td>
+  <td><strong>−4.9 pt</strong></td>
+</tr>
+<tr>
+  <td>成片时长</td>
+  <td>9:43</td>
+  <td>8:49</td>
+  <td>更快</td>
+</tr>
+</tbody>
+</table>
+<p>顺带一个发现：<strong>克隆模式下语速也变稳了</strong>（CV 12.8% → 7.9%），因为每段都对齐到同一段参考的说话习惯。</p>
+<h2>5. 一个意外发现：参考音频决定成片语速</h2>
+<p>同一个模型、同一段文字，只换参考音频：</p>
+<table>
+<thead>
+<tr>
+  <th>参考音频</th>
+  <th>它的语速</th>
+  <th>克隆出来的语速</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>cand_0（9.7 s / 36 字）</td>
+  <td>223 字/分</td>
+  <td><strong>279 字/分</strong></td>
+</tr>
+<tr>
+  <td>cand_1（11.8 s / 33 字）</td>
+  <td>168 字/分</td>
+  <td><strong>221 字/分</strong></td>
+</tr>
+<tr>
+  <td>slow（8.8 s / 36 字，指令写&quot;语速明显偏慢&quot;）</td>
+  <td>245 字/分</td>
+  <td>—</td>
+</tr>
+</tbody>
+</table>
+<p>结论：<strong>别找语速参数，找一段语速合适的参考录音。</strong> 参考音频的节奏会被一起学走。</p>
+<h2>6. 验收阈值（拿去就用）</h2>
+<table>
+<thead>
+<tr>
+  <th>指标</th>
+  <th>合格线</th>
+  <th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>说话人相似度（最低一对）</td>
+  <td>≥ 0.97</td>
+  <td>低于此值，人耳大概率能听出跳变</td>
+</tr>
+<tr>
+  <td>与质心相似度（最低段）</td>
+  <td>≥ 0.98</td>
+  <td>用来定位&quot;该重跑的那一段&quot;</td>
+</tr>
+<tr>
+  <td>语速 CV</td>
+  <td>≤ 10%</td>
+  <td>超过就会&quot;一会儿赶一会儿拖&quot;</td>
+</tr>
+<tr>
+  <td>逐段 RMS 偏差</td>
+  <td>≤ 2 dB</td>
+  <td>超过会被读成&quot;忽远忽近&quot;</td>
+</tr>
+</tbody>
+</table>
+<h2>7. 复现</h2>
+<pre><code class="language-bash"># 1) 造一条参考音色（设计一次，之后复用）
+#    用 VoiceDesign 生成 8–12 秒干净录音，连同逐字稿一起保存
+
+# 2) 克隆 + 择优
+python3 scripts/tts_clone.py --script episodes/ep03/script_zh.txt \
+    --out audio/ep03 --ref ref/cand_1.wav --ref-text &quot;...&quot; \
+    --samples 3 --select speaker
+
+# 3) 验收：逐段量相似度 / 基频 / 语速
+python3 scripts/diagnose_episode.py audio/ep03.m4a audio/ep03.report.json episodes/ep03/script_zh.txt
+
+# 4) A/B 对照（VoiceDesign vs Clone）
+python3 scripts/check_timbre.py
+</code></pre>
+<h2>8. 局限</h2>
+<ul>
+<li>ECAPA 相似度只覆盖&quot;说话人身份&quot;这一维，不覆盖音色亮度、气息、口型感；阈值是可用的代理，不等于人耳判断。</li>
+<li>基频估计用自相关粗算，短句上容易出八度错误，基频标准差在长短混合时参考价值有限。</li>
+<li>克隆会继承参考音频的缺陷（噪声、口音、气口）。参考必须干净。</li>
+<li>修复后成片更快（221 → 240+ 字/分），需要在&quot;参考选择&quot;上手动调，没有直接的速度参数。</li>
+</ul>
+<hr />
+<p><em>本期音频、前两期修复版、测量脚本与原始数据均在仓库内。如果你听出仍有跳变，请告诉我具体时间点——那说明我的阈值定得还不够严。</em></p>
+
+
+  <footer>
+    本页与本期音频由同一套本地流水线生成：文稿 → 切句 → 本地 TTS → 拼接 → RSS。
+    数据为本机实测，原始记录见 <a href="episodes/03/ep03.report.json">ep03.report.json</a>。
+  </footer>
+</main>
+</body>
+</html>

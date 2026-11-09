@@ -1,263 +1,299 @@
 {
+  "mode": "voice_clone",
+  "model": "/Users/dylan/code/shared/model-server/models/Qwen3-TTS-12Hz-1.7B-Base-8bit",
+  "ref_audio": "ref/cand_1.wav",
+  "ref_text": "我把声音固定下来之后，剩下的工作就简单了：写稿、切句、生成、检查。",
   "script": "episodes/ep02/script_zh.txt",
-  "voice": "成年男性，低沉清晰，标准普通话，语速适中偏慢，不要夸张的播音腔，像在认真讲一件事，句子之间留一点呼吸感。",
   "units": [
     {
       "index": 1,
       "chars": 16,
-      "audio_seconds": 3.43,
-      "gen_seconds": 1.83,
-      "rtf": 0.408,
-      "raw_seconds": 4.48
+      "audio_seconds": 3.83,
+      "gen_seconds": 7.08,
+      "rtf": 1.843,
+      "chars_per_min": 250.4,
+      "speaker_sim": 0.9848
     },
     {
       "index": 2,
       "chars": 26,
-      "audio_seconds": 7.79,
-      "gen_seconds": 3.32,
-      "rtf": 0.392,
-      "raw_seconds": 8.48
+      "audio_seconds": 7.15,
+      "gen_seconds": 6.01,
+      "rtf": 0.834,
+      "chars_per_min": 218.0,
+      "speaker_sim": 0.9836
     },
     {
       "index": 3,
       "chars": 34,
-      "audio_seconds": 6.95,
-      "gen_seconds": 3.13,
-      "rtf": 0.391,
-      "raw_seconds": 8.0
+      "audio_seconds": 7.2,
+      "gen_seconds": 4.52,
+      "rtf": 0.628,
+      "chars_per_min": 283.3,
+      "speaker_sim": 0.9834
     },
     {
       "index": 4,
       "chars": 9,
-      "audio_seconds": 2.37,
-      "gen_seconds": 1.13,
-      "rtf": 0.414,
-      "raw_seconds": 2.72
+      "audio_seconds": 2.32,
+      "gen_seconds": 2.04,
+      "rtf": 0.879,
+      "chars_per_min": 232.8,
+      "speaker_sim": 0.9822
     },
     {
       "index": 5,
       "chars": 73,
-      "audio_seconds": 22.72,
-      "gen_seconds": 9.15,
-      "rtf": 0.386,
-      "raw_seconds": 23.68
+      "audio_seconds": 18.24,
+      "gen_seconds": 10.7,
+      "rtf": 0.584,
+      "chars_per_min": 240.2,
+      "speaker_sim": 0.9842
     },
     {
       "index": 6,
       "chars": 11,
-      "audio_seconds": 2.39,
-      "gen_seconds": 1.25,
-      "rtf": 0.411,
-      "raw_seconds": 3.04
+      "audio_seconds": 2.66,
+      "gen_seconds": 3.56,
+      "rtf": 1.172,
+      "chars_per_min": 248.3,
+      "speaker_sim": 0.9825
     },
     {
       "index": 7,
       "chars": 52,
-      "audio_seconds": 14.06,
-      "gen_seconds": 5.61,
-      "rtf": 0.388,
-      "raw_seconds": 14.48
+      "audio_seconds": 12.87,
+      "gen_seconds": 7.35,
+      "rtf": 0.571,
+      "chars_per_min": 242.4,
+      "speaker_sim": 0.9857
     },
     {
       "index": 8,
       "chars": 59,
-      "audio_seconds": 15.39,
-      "gen_seconds": 6.13,
-      "rtf": 0.389,
-      "raw_seconds": 15.76
+      "audio_seconds": 13.92,
+      "gen_seconds": 10.02,
+      "rtf": 0.712,
+      "chars_per_min": 254.3,
+      "speaker_sim": 0.9854
     },
     {
       "index": 9,
       "chars": 40,
-      "audio_seconds": 8.46,
-      "gen_seconds": 3.39,
-      "rtf": 0.392,
-      "raw_seconds": 8.64
+      "audio_seconds": 10.32,
+      "gen_seconds": 6.34,
+      "rtf": 0.615,
+      "chars_per_min": 232.6,
+      "speaker_sim": 0.9851
     },
     {
       "index": 10,
       "chars": 41,
-      "audio_seconds": 12.36,
-      "gen_seconds": 5.47,
-      "rtf": 0.388,
-      "raw_seconds": 14.08
+      "audio_seconds": 10.39,
+      "gen_seconds": 8.09,
+      "rtf": 0.778,
+      "chars_per_min": 236.8,
+      "speaker_sim": 0.9874
     },
     {
       "index": 11,
       "chars": 15,
-      "audio_seconds": 4.62,
-      "gen_seconds": 2.13,
-      "rtf": 0.398,
-      "raw_seconds": 5.36
+      "audio_seconds": 4.48,
+      "gen_seconds": 4.59,
+      "rtf": 1.025,
+      "chars_per_min": 200.9,
+      "speaker_sim": 0.9766
     },
     {
       "index": 12,
       "chars": 79,
-      "audio_seconds": 16.98,
-      "gen_seconds": 6.91,
-      "rtf": 0.387,
-      "raw_seconds": 17.84
+      "audio_seconds": 18.51,
+      "gen_seconds": 10.79,
+      "rtf": 0.583,
+      "chars_per_min": 256.1,
+      "speaker_sim": 0.9847
     },
     {
       "index": 13,
       "chars": 10,
-      "audio_seconds": 2.61,
-      "gen_seconds": 1.38,
-      "rtf": 0.41,
-      "raw_seconds": 3.36
+      "audio_seconds": 2.16,
+      "gen_seconds": 2.74,
+      "rtf": 1.27,
+      "chars_per_min": 278.4,
+      "speaker_sim": 0.9833
     },
     {
       "index": 14,
       "chars": 51,
-      "audio_seconds": 11.51,
-      "gen_seconds": 4.67,
-      "rtf": 0.389,
-      "raw_seconds": 12.0
+      "audio_seconds": 11.2,
+      "gen_seconds": 7.28,
+      "rtf": 0.65,
+      "chars_per_min": 273.3,
+      "speaker_sim": 0.9866
     },
     {
       "index": 15,
       "chars": 49,
-      "audio_seconds": 12.5,
-      "gen_seconds": 5.01,
-      "rtf": 0.389,
-      "raw_seconds": 12.88
+      "audio_seconds": 11.52,
+      "gen_seconds": 7.7,
+      "rtf": 0.668,
+      "chars_per_min": 255.2,
+      "speaker_sim": 0.9889
     },
     {
       "index": 16,
       "chars": 26,
-      "audio_seconds": 5.76,
-      "gen_seconds": 2.39,
-      "rtf": 0.403,
-      "raw_seconds": 5.92
+      "audio_seconds": 6.08,
+      "gen_seconds": 5.04,
+      "rtf": 0.817,
+      "chars_per_min": 256.6,
+      "speaker_sim": 0.9825
     },
     {
       "index": 17,
       "chars": 15,
-      "audio_seconds": 3.91,
-      "gen_seconds": 1.81,
-      "rtf": 0.445,
-      "raw_seconds": 4.08
+      "audio_seconds": 5.34,
+      "gen_seconds": 3.17,
+      "rtf": 0.592,
+      "chars_per_min": 168.5,
+      "speaker_sim": 0.9894
     },
     {
       "index": 18,
       "chars": 20,
-      "audio_seconds": 5.19,
-      "gen_seconds": 2.77,
-      "rtf": 0.397,
-      "raw_seconds": 6.96
+      "audio_seconds": 5.3,
+      "gen_seconds": 3.35,
+      "rtf": 0.625,
+      "chars_per_min": 226.6,
+      "speaker_sim": 0.9835
     },
     {
       "index": 19,
       "chars": 67,
-      "audio_seconds": 17.29,
-      "gen_seconds": 6.79,
-      "rtf": 0.391,
-      "raw_seconds": 17.36
+      "audio_seconds": 17.07,
+      "gen_seconds": 10.05,
+      "rtf": 0.589,
+      "chars_per_min": 235.5,
+      "speaker_sim": 0.9838
     },
     {
       "index": 20,
       "chars": 9,
-      "audio_seconds": 3.52,
-      "gen_seconds": 1.53,
-      "rtf": 0.406,
-      "raw_seconds": 3.76
+      "audio_seconds": 2.17,
+      "gen_seconds": 1.73,
+      "rtf": 0.771,
+      "chars_per_min": 248.7,
+      "speaker_sim": 0.9767
     },
     {
       "index": 21,
       "chars": 83,
-      "audio_seconds": 23.5,
-      "gen_seconds": 9.77,
-      "rtf": 0.389,
-      "raw_seconds": 25.12
+      "audio_seconds": 18.72,
+      "gen_seconds": 10.88,
+      "rtf": 0.571,
+      "chars_per_min": 266.1,
+      "speaker_sim": 0.983
     },
     {
       "index": 22,
       "chars": 51,
-      "audio_seconds": 13.78,
-      "gen_seconds": 5.45,
-      "rtf": 0.389,
-      "raw_seconds": 14.0
+      "audio_seconds": 11.98,
+      "gen_seconds": 7.44,
+      "rtf": 0.616,
+      "chars_per_min": 255.3,
+      "speaker_sim": 0.9848
     },
     {
       "index": 23,
       "chars": 16,
-      "audio_seconds": 4.25,
-      "gen_seconds": 1.78,
-      "rtf": 0.405,
-      "raw_seconds": 4.4
+      "audio_seconds": 3.86,
+      "gen_seconds": 3.75,
+      "rtf": 0.901,
+      "chars_per_min": 248.6,
+      "speaker_sim": 0.9868
     },
     {
       "index": 24,
       "chars": 67,
-      "audio_seconds": 15.25,
-      "gen_seconds": 6.02,
-      "rtf": 0.388,
-      "raw_seconds": 15.52
+      "audio_seconds": 15.04,
+      "gen_seconds": 8.38,
+      "rtf": 0.557,
+      "chars_per_min": 267.3,
+      "speaker_sim": 0.9865
     },
     {
       "index": 25,
       "chars": 18,
-      "audio_seconds": 4.13,
-      "gen_seconds": 1.71,
-      "rtf": 0.404,
-      "raw_seconds": 4.24
+      "audio_seconds": 4.63,
+      "gen_seconds": 2.94,
+      "rtf": 0.583,
+      "chars_per_min": 233.3,
+      "speaker_sim": 0.9868
     },
     {
       "index": 26,
       "chars": 10,
-      "audio_seconds": 2.74,
-      "gen_seconds": 1.18,
-      "rtf": 0.411,
-      "raw_seconds": 2.88
+      "audio_seconds": 2.43,
+      "gen_seconds": 2.82,
+      "rtf": 1.067,
+      "chars_per_min": 246.4,
+      "speaker_sim": 0.9773
     },
     {
       "index": 27,
       "chars": 63,
-      "audio_seconds": 15.17,
-      "gen_seconds": 6.5,
-      "rtf": 0.39,
-      "raw_seconds": 16.64
+      "audio_seconds": 14.93,
+      "gen_seconds": 8.57,
+      "rtf": 0.573,
+      "chars_per_min": 253.2,
+      "speaker_sim": 0.984
     },
     {
       "index": 28,
       "chars": 41,
-      "audio_seconds": 8.96,
-      "gen_seconds": 3.56,
-      "rtf": 0.394,
-      "raw_seconds": 9.04
+      "audio_seconds": 9.52,
+      "gen_seconds": 6.83,
+      "rtf": 0.717,
+      "chars_per_min": 258.4,
+      "speaker_sim": 0.988
     },
     {
       "index": 29,
       "chars": 34,
-      "audio_seconds": 10.23,
-      "gen_seconds": 4.04,
-      "rtf": 0.391,
-      "raw_seconds": 10.32
+      "audio_seconds": 8.83,
+      "gen_seconds": 5.37,
+      "rtf": 0.605,
+      "chars_per_min": 231.2,
+      "speaker_sim": 0.9875
     },
     {
       "index": 30,
       "chars": 31,
-      "audio_seconds": 8.08,
-      "gen_seconds": 3.24,
-      "rtf": 0.393,
-      "raw_seconds": 8.24
+      "audio_seconds": 7.93,
+      "gen_seconds": 5.12,
+      "rtf": 0.637,
+      "chars_per_min": 234.4,
+      "speaker_sim": 0.9879
     },
     {
       "index": 31,
       "chars": 10,
-      "audio_seconds": 3.94,
-      "gen_seconds": 1.62,
-      "rtf": 0.404,
-      "raw_seconds": 4.0
+      "audio_seconds": 2.35,
+      "gen_seconds": 1.93,
+      "rtf": 0.803,
+      "chars_per_min": 255.2,
+      "speaker_sim": 0.9807
     }
   ],
   "total_chars": 1126,
-  "audio_seconds": 303.66,
-  "wall_seconds": 120.66,
-  "speed_vs_realtime": 2.52,
-  "raw_audio_seconds": 307.28,
-  "reassembled": false,
+  "audio_seconds": 286.75,
+  "wall_seconds": 364.81,
+  "speed_vs_realtime": 0.79,
+  "chars_per_min_mean": 244.8,
+  "chars_per_min_cv": 9.0,
+  "speaker_sim_mean": 0.9843,
+  "speaker_sim_min": 0.9766,
   "wav": "ep02.wav",
   "m4a": "ep02.m4a",
-  "generated_at": "2026-11-10T03:26:49"
+  "generated_at": "2026-11-10T04:00:23"
 }

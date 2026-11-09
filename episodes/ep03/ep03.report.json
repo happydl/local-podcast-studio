@@ -1,0 +1,299 @@
+{
+  "mode": "voice_clone",
+  "model": "/Users/dylan/code/shared/model-server/models/Qwen3-TTS-12Hz-1.7B-Base-8bit",
+  "ref_audio": "ref/cand_1.wav",
+  "ref_text": "我把声音固定下来之后，剩下的工作就简单了：写稿、切句、生成、检查。",
+  "script": "episodes/ep03/script_zh.txt",
+  "units": [
+    {
+      "index": 1,
+      "chars": 34,
+      "audio_seconds": 8.4,
+      "gen_seconds": 3.67,
+      "rtf": 0.437,
+      "chars_per_min": 243.0,
+      "speaker_sim": 0.987
+    },
+    {
+      "index": 2,
+      "chars": 25,
+      "audio_seconds": 6.49,
+      "gen_seconds": 3.09,
+      "rtf": 0.46,
+      "chars_per_min": 231.1,
+      "speaker_sim": 0.9891
+    },
+    {
+      "index": 3,
+      "chars": 26,
+      "audio_seconds": 6.72,
+      "gen_seconds": 3.07,
+      "rtf": 0.457,
+      "chars_per_min": 232.1,
+      "speaker_sim": 0.9862
+    },
+    {
+      "index": 4,
+      "chars": 5,
+      "audio_seconds": 1.34,
+      "gen_seconds": 1.3,
+      "rtf": 0.774,
+      "chars_per_min": 224.0,
+      "speaker_sim": 0.9712
+    },
+    {
+      "index": 5,
+      "chars": 56,
+      "audio_seconds": 12.96,
+      "gen_seconds": 5.32,
+      "rtf": 0.411,
+      "chars_per_min": 259.3,
+      "speaker_sim": 0.9877
+    },
+    {
+      "index": 6,
+      "chars": 55,
+      "audio_seconds": 13.44,
+      "gen_seconds": 5.5,
+      "rtf": 0.407,
+      "chars_per_min": 245.5,
+      "speaker_sim": 0.9851
+    },
+    {
+      "index": 7,
+      "chars": 24,
+      "audio_seconds": 6.14,
+      "gen_seconds": 2.89,
+      "rtf": 0.468,
+      "chars_per_min": 234.7,
+      "speaker_sim": 0.985
+    },
+    {
+      "index": 8,
+      "chars": 56,
+      "audio_seconds": 13.04,
+      "gen_seconds": 5.33,
+      "rtf": 0.409,
+      "chars_per_min": 257.7,
+      "speaker_sim": 0.9856
+    },
+    {
+      "index": 9,
+      "chars": 27,
+      "audio_seconds": 6.35,
+      "gen_seconds": 3.08,
+      "rtf": 0.464,
+      "chars_per_min": 255.2,
+      "speaker_sim": 0.9774
+    },
+    {
+      "index": 10,
+      "chars": 16,
+      "audio_seconds": 3.93,
+      "gen_seconds": 2.07,
+      "rtf": 0.518,
+      "chars_per_min": 244.2,
+      "speaker_sim": 0.9816
+    },
+    {
+      "index": 11,
+      "chars": 56,
+      "audio_seconds": 12.92,
+      "gen_seconds": 5.3,
+      "rtf": 0.41,
+      "chars_per_min": 260.1,
+      "speaker_sim": 0.9851
+    },
+    {
+      "index": 12,
+      "chars": 45,
+      "audio_seconds": 10.56,
+      "gen_seconds": 4.5,
+      "rtf": 0.426,
+      "chars_per_min": 255.6,
+      "speaker_sim": 0.9856
+    },
+    {
+      "index": 13,
+      "chars": 67,
+      "audio_seconds": 14.32,
+      "gen_seconds": 5.81,
+      "rtf": 0.406,
+      "chars_per_min": 280.7,
+      "speaker_sim": 0.9828
+    },
+    {
+      "index": 14,
+      "chars": 30,
+      "audio_seconds": 6.26,
+      "gen_seconds": 3.04,
+      "rtf": 0.469,
+      "chars_per_min": 287.5,
+      "speaker_sim": 0.9784
+    },
+    {
+      "index": 15,
+      "chars": 5,
+      "audio_seconds": 1.66,
+      "gen_seconds": 1.31,
+      "rtf": 0.778,
+      "chars_per_min": 180.2,
+      "speaker_sim": 0.9803
+    },
+    {
+      "index": 16,
+      "chars": 71,
+      "audio_seconds": 17.74,
+      "gen_seconds": 7.18,
+      "rtf": 0.4,
+      "chars_per_min": 240.1,
+      "speaker_sim": 0.9846
+    },
+    {
+      "index": 17,
+      "chars": 27,
+      "audio_seconds": 6.12,
+      "gen_seconds": 2.88,
+      "rtf": 0.467,
+      "chars_per_min": 264.7,
+      "speaker_sim": 0.9859
+    },
+    {
+      "index": 18,
+      "chars": 57,
+      "audio_seconds": 12.24,
+      "gen_seconds": 5.03,
+      "rtf": 0.411,
+      "chars_per_min": 279.5,
+      "speaker_sim": 0.9847
+    },
+    {
+      "index": 19,
+      "chars": 38,
+      "audio_seconds": 8.95,
+      "gen_seconds": 3.84,
+      "rtf": 0.429,
+      "chars_per_min": 254.8,
+      "speaker_sim": 0.9844
+    },
+    {
+      "index": 20,
+      "chars": 12,
+      "audio_seconds": 3.28,
+      "gen_seconds": 1.82,
+      "rtf": 0.556,
+      "chars_per_min": 219.5,
+      "speaker_sim": 0.9846
+    },
+    {
+      "index": 21,
+      "chars": 35,
+      "audio_seconds": 7.4,
+      "gen_seconds": 3.3,
+      "rtf": 0.443,
+      "chars_per_min": 283.6,
+      "speaker_sim": 0.9835
+    },
+    {
+      "index": 22,
+      "chars": 56,
+      "audio_seconds": 12.81,
+      "gen_seconds": 5.25,
+      "rtf": 0.408,
+      "chars_per_min": 262.3,
+      "speaker_sim": 0.9854
+    },
+    {
+      "index": 23,
+      "chars": 60,
+      "audio_seconds": 12.3,
+      "gen_seconds": 5.06,
+      "rtf": 0.411,
+      "chars_per_min": 292.6,
+      "speaker_sim": 0.9856
+    },
+    {
+      "index": 24,
+      "chars": 13,
+      "audio_seconds": 3.11,
+      "gen_seconds": 1.79,
+      "rtf": 0.575,
+      "chars_per_min": 250.9,
+      "speaker_sim": 0.9829
+    },
+    {
+      "index": 25,
+      "chars": 66,
+      "audio_seconds": 15.39,
+      "gen_seconds": 6.24,
+      "rtf": 0.405,
+      "chars_per_min": 257.2,
+      "speaker_sim": 0.9809
+    },
+    {
+      "index": 26,
+      "chars": 62,
+      "audio_seconds": 15.19,
+      "gen_seconds": 6.09,
+      "rtf": 0.401,
+      "chars_per_min": 244.9,
+      "speaker_sim": 0.9837
+    },
+    {
+      "index": 27,
+      "chars": 49,
+      "audio_seconds": 11.9,
+      "gen_seconds": 4.9,
+      "rtf": 0.409,
+      "chars_per_min": 247.1,
+      "speaker_sim": 0.9846
+    },
+    {
+      "index": 28,
+      "chars": 59,
+      "audio_seconds": 14.96,
+      "gen_seconds": 6.05,
+      "rtf": 0.405,
+      "chars_per_min": 236.6,
+      "speaker_sim": 0.9881
+    },
+    {
+      "index": 29,
+      "chars": 22,
+      "audio_seconds": 6.16,
+      "gen_seconds": 2.97,
+      "rtf": 0.464,
+      "chars_per_min": 214.4,
+      "speaker_sim": 0.9846
+    },
+    {
+      "index": 30,
+      "chars": 34,
+      "audio_seconds": 8.24,
+      "gen_seconds": 3.56,
+      "rtf": 0.432,
+      "chars_per_min": 247.6,
+      "speaker_sim": 0.987
+    },
+    {
+      "index": 31,
+      "chars": 10,
+      "audio_seconds": 2.82,
+      "gen_seconds": 1.7,
+      "rtf": 0.59,
+      "chars_per_min": 212.5,
+      "speaker_sim": 0.9822
+    }
+  ],
+  "total_chars": 1198,
+  "audio_seconds": 296.95,
+  "wall_seconds": 246.82,
+  "speed_vs_realtime": 1.2,
+  "chars_per_min_mean": 248.4,
+  "chars_per_min_cv": 9.5,
+  "speaker_sim_mean": 0.9839,
+  "speaker_sim_min": 0.9712,
+  "wav": "ep03.wav",
+  "m4a": "ep03.m4a",
+  "generated_at": "2026-11-10T04:07:41"
+}

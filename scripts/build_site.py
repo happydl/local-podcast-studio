@@ -2,7 +2,7 @@
 """把文章 Markdown 渲染成单页站点（含播放器、封面、数据表）。
 
 用法: python3 build_site.py <md> <out.html> [--ep 01] [--audio ep01.m4a]
-                            [--title 标题] [--duration 09:43] [--page ep02.html]
+                            [--title 标题] [--duration 08:45]
 """
 from __future__ import annotations
 
@@ -13,8 +13,9 @@ from pathlib import Path
 import mistune
 
 EPISODES = [
-    ("ep01.html", "01", "一台 Mac 做中文播客：本地语音合成的实测账本", "09:43"),
-    ("ep02.html", "02", "同一句话，两次生成差 40%：语音合成的语速抖动实测", "05:04"),
+    ("ep01.html", "01", "一台 Mac 做中文播客：本地语音合成的实测账本", "08:45"),
+    ("ep02.html", "02", "同一句话，两次生成差 40%：语音合成的语速抖动实测", "04:47"),
+    ("ep03.html", "03", "为什么你的 AI 播客像换了个人：音色漂移的根因与修复", "04:57"),
 ]
 
 TEMPLATE = """<!doctype html>
@@ -139,7 +140,7 @@ def main() -> int:
     ap.add_argument("--audio", default="ep01.m4a")
     ap.add_argument("--cover", default="cover.jpg")
     ap.add_argument("--title", default="一台 Mac 做中文播客：本地语音合成的实测账本")
-    ap.add_argument("--duration", default="09:43")
+    ap.add_argument("--duration", default="08:45")
     args = ap.parse_args()
 
     md = Path(args.md).read_text(encoding="utf-8")
