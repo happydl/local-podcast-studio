@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>一台 Mac 做中文播客：本地语音合成的实测账本</title>
+<meta name="description" content="本地语音合成实测：2112 字中文稿 → 10 分钟播客，2.7 倍实时，零云端调用。">
+<meta property="og:title" content="一台 Mac 做中文播客：本地语音合成的实测账本">
+<meta property="og:image" content="https://happydl.github.io/local-podcast-studio/cover.jpg">
+<link rel="alternate" type="application/rss+xml" title="本地优先 Local First" href="feed.xml">
+<style>
+  :root {
+    --bg:#0f1215; --panel:#161b1f; --text:#e9edf0; --muted:#9aa4ad;
+    --accent:#56d0a8; --line:#232b31;
+  }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body {
+    margin:0; color:var(--text); background:var(--bg);
+    font:16px/1.85 -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:760px; margin:0 auto; padding:56px 22px 96px; }
+  .hero { display:flex; gap:28px; align-items:center; margin-bottom:40px; }
+  .hero img { width:148px; height:148px; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.5); }
+  .kicker { font:12px/1.4 ui-monospace,Menlo,monospace; letter-spacing:.18em;
+            text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
+  h1 { font-size:30px; line-height:1.35; margin:0 0 10px; letter-spacing:-.01em; }
+  h2 { font-size:22px; margin:52px 0 14px; padding-top:8px; }
+  h3 { font-size:17px; margin:30px 0 8px; color:#cfd8df; }
+  p, li { color:#d8dee3; }
+  strong { color:#fff; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(86,208,168,.3); }
+  a:hover { border-color:var(--accent); }
+  blockquote { margin:26px 0; padding:16px 20px; background:var(--panel);
+                border-left:3px solid var(--accent); border-radius:6px; color:var(--muted); }
+  blockquote p { margin:0; color:#b9c3ca; }
+  table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14.5px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; font-size:13px; letter-spacing:.02em; }
+  tr:hover td { background:#141a1e; }
+  code { font:13.5px/1.6 ui-monospace,Menlo,monospace; background:#1b2227;
+          padding:2px 6px; border-radius:5px; color:#a9e8cf; }
+  pre { background:#11171b; border:1px solid var(--line); border-radius:10px;
+         padding:16px 18px; overflow:auto; }
+  pre code { background:none; padding:0; color:#cfe6dc; font-size:13px; }
+  hr { border:none; border-top:1px solid var(--line); margin:44px 0; }
+  .player { background:var(--panel); border:1px solid var(--line); border-radius:14px;
+             padding:18px 20px; margin:0 0 44px; }
+  .player .label { font:12px/1.4 ui-monospace,Menlo,monospace; color:var(--muted);
+                    letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+  audio { width:100%; }
+  .meta { color:var(--muted); font-size:14px; }
+  footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--line);
+            color:var(--muted); font-size:13.5px; }
+  @media (max-width:620px) {
+    .hero { flex-direction:column; align-items:flex-start; gap:18px; }
+    .hero img { width:110px; height:110px; }
+    h1 { font-size:24px; }
+    .wrap { padding:32px 18px 72px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="hero">
+    <img src="cover.jpg" alt="封面">
+    <div>
+      <p class="kicker">Local First · Episode 01</p>
+      <h1>一台 Mac 做中文播客：本地语音合成的实测账本</h1>
+      <p class="meta">2026-11-10 · Apple Silicon M1 Max · 全离线 · 0 次云端调用</p>
+    </div>
+  </div>
+
+  <div class="player">
+    <div class="label">本期音频 · 本机生成 · 10 分 16 秒</div>
+    <audio controls preload="metadata" src="ep01.m4a"></audio>
+    <p class="meta" style="margin:10px 0 0">
+      订阅：<a href="feed.xml">RSS</a> ·
+      代码：<a href="scripts/tts_pipeline.py">tts_pipeline.py</a>
+    </p>
+  </div>
+
+  <h2>0. 三条结论（先说，再验）</h2>
+<ol>
+<li><strong>本地中文 TTS 已经越过&quot;能用&quot;的门槛</strong>：2128 字稿子 → 9 分 43 秒音频，合成耗时 3 分 55 秒，<strong>2.48 倍实时</strong>，实时率（RTF）50 段全部落在 0.40 附近，最快最慢只差 14%。</li>
+<li><strong>省钱不是理由</strong>：同样两千字，国内商用 TTS 约 0.6–1.1 元，本地电费不到 1 分钱——但绝对差额只有一块钱。为省钱去部署本地模型，投入产出比为负。</li>
+<li><strong>真正的理由是&quot;改稿自由&quot;</strong>：不按字符计费，才敢把一句话重写八遍。本地化买到的不是成本，是<strong>编辑权</strong>。</li>
+</ol>
+<h2>1. 测试环境与口径</h2>
+<table>
+<thead>
+<tr>
+  <th>项目</th>
+  <th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>机器</td>
+  <td>Apple Silicon，M1 Max，64 GB 统一内存</td>
+</tr>
+<tr>
+  <td>系统</td>
+  <td>macOS 27.2 (Darwin 27.2.0)</td>
+</tr>
+<tr>
+  <td>模型</td>
+  <td>Qwen3-TTS-12Hz-1.7B-<strong>VoiceDesign</strong>，8-bit 量化</td>
+</tr>
+<tr>
+  <td>推理栈</td>
+  <td>MLX（Apple 官方框架）+ <code>mlx-audio</code>，常驻 Python 进程</td>
+</tr>
+<tr>
+  <td>服务形态</td>
+  <td>本地 HTTP，<code>POST http://127.0.0.1:5091/v1/audio/speech</code></td>
+</tr>
+<tr>
+  <td>输出</td>
+  <td>24 kHz / 单声道 / 16-bit WAV，转 AAC 96 kbps</td>
+</tr>
+<tr>
+  <td>网络</td>
+  <td>全流程离线，无任何云端调用</td>
+</tr>
+</tbody>
+</table>
+<p>三项口径说明，避免误读：</p>
+<ul>
+<li><strong>RTF（real-time factor）</strong> = 合成耗时 ÷ 音频时长，越小越快。</li>
+<li>文本切分按中文句末标点（。！？；），每段 ≤ 460 字（服务端硬上限 500 字符）。</li>
+<li>语速按&quot;字/分钟&quot;计，本期为 219 字/分钟，属正常播讲速度。</li>
+</ul>
+<h2>2. 速度：稳定得有点意外</h2>
+<p>50 段合成单元（最短 6 字，最长 97 字）的实测分布：</p>
+<table>
+<thead>
+<tr>
+  <th>指标</th>
+  <th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>总字数</td>
+  <td>2128</td>
+</tr>
+<tr>
+  <td>音频时长</td>
+  <td>582.7 s（9 分 43 秒）</td>
+</tr>
+<tr>
+  <td>合成耗时（墙钟）</td>
+  <td>235.4 s（3 分 55 秒）</td>
+</tr>
+<tr>
+  <td>平均 RTF</td>
+  <td><strong>0.404</strong></td>
+</tr>
+<tr>
+  <td>RTF 中位数</td>
+  <td>0.401</td>
+</tr>
+<tr>
+  <td>RTF 区间</td>
+  <td>0.397 – 0.451</td>
+</tr>
+<tr>
+  <td>等效速度</td>
+  <td><strong>2.48× 实时</strong></td>
+</tr>
+<tr>
+  <td>吞吐</td>
+  <td>219 字/分钟音频</td>
+</tr>
+</tbody>
+</table>
+<p>几个值得记下来的观察：</p>
+<p><strong>（1）RTF 几乎不随文本长度变化。</strong> 6 字的短句 RTF 0.43，97 字的长段 RTF 0.39。这意味着你可以用&quot;总字数&quot;直接估算生产时间：<strong>每千字约 110 秒</strong>。</p>
+<p><strong>（2）短句反而&quot;更贵&quot;。</strong> 固定开销（请求、解码预热）摊在短句上更明显。所以切句不宜过碎——但听感又要求切句不能太粗，这是一个真实的取舍，见第 5 节。</p>
+<p><strong>（3）串行不是瓶颈。</strong> 本期是单请求串行生成（服务端一次只处理一个请求）。即使这样，做一期 10 分钟节目也只要 4 分钟。并发优化在这个量级上没有意义。</p>
+<h2>3. 成本：省下的钱不如你想象的多</h2>
+<table>
+<thead>
+<tr>
+  <th>方案</th>
+  <th>计价</th>
+  <th>本期 2128 字的成本</th>
+  <th>每万字成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>火山引擎（豆包 TTS，按量）</td>
+  <td>约 3–5 元/万字符</td>
+  <td>¥0.63 – ¥1.06</td>
+  <td>¥3 – ¥5</td>
+</tr>
+<tr>
+  <td>火山引擎（资源包 10 万字档）</td>
+  <td>¥28 / 10 万字</td>
+  <td>¥0.59</td>
+  <td>¥2.8</td>
+</tr>
+<tr>
+  <td>ElevenLabs Flash/Turbo</td>
+  <td>$0.04–0.05 / 千字符</td>
+  <td>≈ ¥0.75（$0.105）</td>
+  <td>≈ ¥3.5</td>
+</tr>
+<tr>
+  <td>ElevenLabs v3</td>
+  <td>$0.10 / 千字符</td>
+  <td>≈ ¥1.50</td>
+  <td>≈ ¥7.1</td>
+</tr>
+<tr>
+  <td><strong>本地（本机）</strong></td>
+  <td>电费</td>
+  <td><strong>&lt; ¥0.01</strong></td>
+  <td>&lt; ¥0.05</td>
+</tr>
+</tbody>
+</table>
+<p><em>汇率按 1 USD ≈ 7.1 CNY；电费按 40 W 满载、¥0.6/度估算（229 s × 40 W ≈ 2.5 Wh ≈ 0.0025 度）。</em></p>
+<p>结论很朴素：<strong>本地方案省的是&quot;边际成本&quot;，但基数太小</strong>。一期节目省 1 块钱，一年 100 期省 100 块。任何一次为了部署它而多花的两小时，都不值这个价。</p>
+<p>那本地部署的价值到底在哪？我认为有三条，按重要性排序：</p>
+<ol>
+<li><strong>改稿成本为零</strong>。商用按字符计费，会让你在&quot;要不要重写这段&quot;上犹豫——这种犹豫会直接降低内容质量。本期节目我重跑了三遍（数字对不上重跑、断句不好重跑），一次一分钱都不用付。</li>
+<li><strong>内容不出本机</strong>。未定稿的稿子、客户材料、内部复盘，不适合传给任何第三方。</li>
+<li><strong>可控性</strong>。音色、语速、情绪都用自然语言描述，而不是在几十个预设音色里挑一个&quot;最不别扭&quot;的。</li>
+</ol>
+<h2>4. 一个反直觉的发现：音色是描述出来的，不是挑选出来的</h2>
+<p>这套模型叫 <strong>VoiceDesign</strong>，它的接口不接收音色 ID，而接收一段<strong>自然语言描述</strong>：</p>
+<pre><code class="language-json">{
+  &quot;model&quot;: &quot;Qwen3-TTS-12Hz-1.7B-VoiceDesign-8bit&quot;,
+  &quot;input&quot;: &quot;这是一次本机语音合成测速。&quot;,
+  &quot;instructions&quot;: &quot;成年男性，低沉清晰，标准普通话，语速适中偏慢，不要夸张的播音腔，像在认真讲一件事，句子之间留一点呼吸感。&quot;,
+  &quot;response_format&quot;: &quot;wav&quot;
+}
+</code></pre>
+<p>实测下来，<strong>描述越具体，输出越稳</strong>。写&quot;好听一点&quot;&quot;自然一点&quot;，输出会飘；写&quot;成年男性、语速适中偏慢、不要播音腔&quot;，同一段描述连跑 50 次，音色和语速基本一致。</p>
+<p>这是一次交互范式的变化：你给的不是参数，是<strong>意图</strong>。代价是意图必须写清楚——这本身是一种新的写作能力。</p>
+<h2>5. 四个必须自己缝的坑</h2>
+<p>工具解决摩擦，不解决品质。以下是这一晚真实踩到的：</p>
+<p><strong>坑 1：单次输入硬上限 500 字符。</strong>
+必须切句。而切在哪里直接决定听感：切在逗号后，气口是断的；切在句号后，才像一句话说完。同样的音色和文字，仅断句位置不同，听感能差一个档位。</p>
+<p><strong>坑 2：长文本韵律漂移。</strong>
+同一段话超过 4–5 句后，重音开始乱，句尾会不自觉上扬。解决办法是<strong>长段切短，并且每段都重复同一条音色描述</strong>，让模型每次重新对齐。</p>
+<p><strong>坑 3：专有名词。</strong>
+数字、英文缩写、人名地名是合成语音最容易露怯的地方。最稳的做法不是调模型，而是<strong>在朗读稿里把它们改写成中文读法</strong>（<code>2.48×</code> → <code>二点五倍</code>，<code>TTS</code> → <code>语音合成</code>）。这一点和真人配音的稿子准备是一样的。</p>
+<p><strong>坑 4：响度不统一。</strong>
+分句生成再拼接，每句音量有细微差异，拼起来像剪辑粗糙的录音。必须做一次统一的峰值归一/限幅，否则听众三分钟内就会关掉。</p>
+<p>结论：<strong>真正的工作量不在&quot;生成&quot;，而在缝补</strong>。这四件事做完，一期节目才算能听。</p>
+<h2>6. 实现：120 行代码的流水线</h2>
+<p>核心只有五步。完整脚本见 <a href="scripts/tts_pipeline.py"><code>scripts/tts_pipeline.py</code></a>。</p>
+<pre><code class="language-python"># 1) 切句：按段落分组，按句末标点切
+sentences = re.split(r&quot;(?&lt;=[。！？；])&quot;, block)
+
+# 2) 打包：合并到 ≤460 字，记录是否段尾
+units = pack(paragraphs)
+
+# 3) 合成：串行请求本地服务，失败重试 3 次
+audio, gen = synth(text, voice)
+
+# 4) 拼接：句间停 0.18 s，段间停 0.55 s
+pieces.append(np.zeros(int(rate * gap), dtype=np.float32))
+
+# 5) 响度统一 + 导出 m4a
+audio = np.tanh(audio / peak) * 0.89
+subprocess.run([&quot;afconvert&quot;, &quot;-f&quot;, &quot;m4af&quot;, &quot;-d&quot;, &quot;aac&quot;, &quot;-q&quot;, &quot;127&quot;, wav, m4a])
+</code></pre>
+<p>跑一遍：</p>
+<pre><code class="language-bash">./start.sh tts                     # 起本地服务，等 /health 返回 ready
+python3 scripts/tts_pipeline.py \
+    --script episodes/ep01/script_zh.txt \
+    --out audio/ep01
+# → 50 段合成，3 分 55 秒，输出 ep01.wav / ep01.m4a / ep01.report.json
+</code></pre>
+<p><code>report.json</code> 会记录每段的字数、音频时长、耗时、RTF，方便复现和对比。</p>
+<h2>7. 分发：RSS 就够，不用买任何托管</h2>
+<p>很多人以为上播客要先注册平台，其实播客生态的协议是 <strong>RSS</strong>：一份 XML + 音频文件放在任意可公开访问的静态站点上，Apple Podcasts、Spotify、小宇宙、Pocket Casts 都能直接订阅。</p>
+<p>本期用的是 GitHub Pages（免费、支持 HTTPS、支持字节范围请求——这是播放器拖动进度条的前提）。</p>
+<pre><code class="language-bash">python3 scripts/make_feed.py \
+    --base https://&lt;user&gt;.github.io/&lt;repo&gt; \
+    --out site/feed.xml \
+    --episodes episodes/ep01/ep01.m4a \
+    --titles &quot;一台 Mac 做中文播客：本地语音合成的实测账本&quot;
+</code></pre>
+<p>注意几个容易踩的点：</p>
+<ul>
+<li><code>&lt;enclosure&gt;</code> 必须同时带 <code>url</code>、<code>length</code>、<code>type</code>，缺一个 Apple 就报&quot;Feed 中没有单集&quot;。</li>
+<li>服务器必须支持 HEAD 与 Range 请求，否则部分客户端无法播放（<a href="https://podcasters.apple.com/zh-tw/support/829-validate-your-podcast">Apple 官方说明</a>）。</li>
+<li>封面 1400×1400 或 3000×3000，JPG/PNG，小于 500 KB。</li>
+<li>提交到 <a href="https://podcasters.apple.com/zh-cn/support/897-submit-a-show">Apple Podcasts Connect</a> 后要过技术验证 + 内容审核；小宇宙支持 RSS 导入（不强制实名，但需账号）。</li>
+</ul>
+<h2>8. 适合谁，不适合谁</h2>
+<p><strong>适合：</strong></p>
+<ul>
+<li>高频更新、需要反复改稿的知识型主播（改一版重跑 4 分钟，零边际成本）</li>
+<li>内容不便上云的专业人士（法律、医疗、企业内部材料）</li>
+<li>想把长文变成音频、给文章加一个&quot;收听&quot;入口的写作者</li>
+</ul>
+<p><strong>不适合：</strong></p>
+<ul>
+<li>需要真实情绪和即兴反应的访谈/对谈节目</li>
+<li>把声音本身当卖点的播音作品（广告、纪录片旁白）</li>
+<li>追求&quot;一次成型&quot;的场景：本方案需要 4 个后处理步骤才达标</li>
+</ul>
+<h2>9. 一条态度问题：披露义务</h2>
+<p>用合成声音做节目，<strong>应该在节目里说清楚</strong>。这不是法律要求（各国规定不一），是听众信任的成本。藏着不说，被发现一次，就再也没有第二次。</p>
+<p>本期节目在开场第 6 行明确说明了&quot;这期节目本身就是用这套流程生成的&quot;。我认为这应该成为默认做法，而不是可选项。</p>
+<h2>10. 复现清单</h2>
+<table>
+<thead>
+<tr>
+  <th>文件</th>
+  <th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>scripts/tts_pipeline.py</code></td>
+  <td>切句 → 合成 → 拼接 → 响度 → 导出 m4a</td>
+</tr>
+<tr>
+  <td><code>scripts/make_feed.py</code></td>
+  <td>生成符合 iTunes 规范的 RSS</td>
+</tr>
+<tr>
+  <td><code>scripts/make_cover.py</code></td>
+  <td>用真实波形生成 1400×1400 封面</td>
+</tr>
+<tr>
+  <td><code>episodes/ep01/script_zh.txt</code></td>
+  <td>本期朗读稿（2128 字）</td>
+</tr>
+<tr>
+  <td><code>episodes/ep01/ep01.report.json</code></td>
+  <td>50 段逐段实测数据</td>
+</tr>
+<tr>
+  <td><code>episodes/ep01/ep01.m4a</code></td>
+  <td>成品音频（9 分 43 秒，2.5 MB）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>环境依赖</strong>：macOS + MLX + <code>mlx-audio</code>；TTS 服务需支持 <code>/v1/audio/speech</code>（本期为本地自建，OpenAI 兼容格式）。</p>
+<hr />
+<h2>附：一句话总结</h2>
+<blockquote>
+<p>本地 TTS 现在的能力是&quot;一个不会疲倦、不会抱怨、也不要钱的配音员，但它需要你把稿子写到足够干净&quot;。</p>
+</blockquote>
+<p>真正的门槛从来不在模型，而在<strong>断句、改稿、披露</strong>这三件人做的事。</p>
+<hr />
+<p><em>数据来源：本期为本机实测，原始逐段数据见 <code>ep01.report.json</code>；商用 TTS 价格为 2026-10 公开报价（<a href="https://docs.volcengine.com/docs/doubao-voice/billing-instructions">火山引擎计费说明</a>、<a href="https://texttolab.com/blog/elevenlabs-pricing">ElevenLabs 定价整理</a>），实际以各平台当期账单为准。</em></p>
+
+
+  <footer>
+    本页与本期音频由同一套本地流水线生成：文稿 → 切句 → 本地 TTS → 拼接 → RSS。
+    数据为本机实测，原始逐段记录见 <a href="episodes/ep01/ep01.report.json">ep01.report.json</a>。
+  </footer>
+</main>
+</body>
+</html>

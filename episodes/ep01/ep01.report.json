@@ -1,0 +1,415 @@
+{
+  "script": "episodes/ep01/script_zh.txt",
+  "voice": "成年男性，低沉清晰，标准普通话，语速适中偏慢，不要夸张的播音腔，像在认真讲一件事，句子之间留一点呼吸感。",
+  "units": [
+    {
+      "index": 1,
+      "chars": 37,
+      "audio_seconds": 10.48,
+      "gen_seconds": 4.45,
+      "rtf": 0.404,
+      "raw_seconds": 11.04
+    },
+    {
+      "index": 2,
+      "chars": 36,
+      "audio_seconds": 12.41,
+      "gen_seconds": 5.17,
+      "rtf": 0.399,
+      "raw_seconds": 12.96
+    },
+    {
+      "index": 3,
+      "chars": 33,
+      "audio_seconds": 10.81,
+      "gen_seconds": 4.54,
+      "rtf": 0.4,
+      "raw_seconds": 11.36
+    },
+    {
+      "index": 4,
+      "chars": 58,
+      "audio_seconds": 12.28,
+      "gen_seconds": 5.04,
+      "rtf": 0.399,
+      "raw_seconds": 12.64
+    },
+    {
+      "index": 5,
+      "chars": 45,
+      "audio_seconds": 10.03,
+      "gen_seconds": 4.07,
+      "rtf": 0.4,
+      "raw_seconds": 10.16
+    },
+    {
+      "index": 6,
+      "chars": 17,
+      "audio_seconds": 4.35,
+      "gen_seconds": 2.35,
+      "rtf": 0.408,
+      "raw_seconds": 5.76
+    },
+    {
+      "index": 7,
+      "chars": 97,
+      "audio_seconds": 26.58,
+      "gen_seconds": 11.03,
+      "rtf": 0.397,
+      "raw_seconds": 27.76
+    },
+    {
+      "index": 8,
+      "chars": 32,
+      "audio_seconds": 10.11,
+      "gen_seconds": 4.07,
+      "rtf": 0.401,
+      "raw_seconds": 10.16
+    },
+    {
+      "index": 9,
+      "chars": 68,
+      "audio_seconds": 15.79,
+      "gen_seconds": 6.72,
+      "rtf": 0.398,
+      "raw_seconds": 16.88
+    },
+    {
+      "index": 10,
+      "chars": 35,
+      "audio_seconds": 8.72,
+      "gen_seconds": 3.57,
+      "rtf": 0.402,
+      "raw_seconds": 8.88
+    },
+    {
+      "index": 11,
+      "chars": 39,
+      "audio_seconds": 9.14,
+      "gen_seconds": 3.73,
+      "rtf": 0.402,
+      "raw_seconds": 9.28
+    },
+    {
+      "index": 12,
+      "chars": 15,
+      "audio_seconds": 3.3,
+      "gen_seconds": 2.04,
+      "rtf": 0.411,
+      "raw_seconds": 4.96
+    },
+    {
+      "index": 13,
+      "chars": 81,
+      "audio_seconds": 23.95,
+      "gen_seconds": 9.86,
+      "rtf": 0.399,
+      "raw_seconds": 24.72
+    },
+    {
+      "index": 14,
+      "chars": 31,
+      "audio_seconds": 8.0,
+      "gen_seconds": 3.6,
+      "rtf": 0.402,
+      "raw_seconds": 8.96
+    },
+    {
+      "index": 15,
+      "chars": 53,
+      "audio_seconds": 14.8,
+      "gen_seconds": 6.59,
+      "rtf": 0.398,
+      "raw_seconds": 16.56
+    },
+    {
+      "index": 16,
+      "chars": 28,
+      "audio_seconds": 6.41,
+      "gen_seconds": 2.63,
+      "rtf": 0.406,
+      "raw_seconds": 6.48
+    },
+    {
+      "index": 17,
+      "chars": 36,
+      "audio_seconds": 9.26,
+      "gen_seconds": 3.82,
+      "rtf": 0.401,
+      "raw_seconds": 9.52
+    },
+    {
+      "index": 18,
+      "chars": 17,
+      "audio_seconds": 3.48,
+      "gen_seconds": 1.51,
+      "rtf": 0.42,
+      "raw_seconds": 3.6
+    },
+    {
+      "index": 19,
+      "chars": 87,
+      "audio_seconds": 22.68,
+      "gen_seconds": 9.13,
+      "rtf": 0.398,
+      "raw_seconds": 22.96
+    },
+    {
+      "index": 20,
+      "chars": 60,
+      "audio_seconds": 14.8,
+      "gen_seconds": 5.92,
+      "rtf": 0.398,
+      "raw_seconds": 14.88
+    },
+    {
+      "index": 21,
+      "chars": 57,
+      "audio_seconds": 13.83,
+      "gen_seconds": 5.77,
+      "rtf": 0.399,
+      "raw_seconds": 14.48
+    },
+    {
+      "index": 22,
+      "chars": 47,
+      "audio_seconds": 10.82,
+      "gen_seconds": 4.51,
+      "rtf": 0.4,
+      "raw_seconds": 11.28
+    },
+    {
+      "index": 23,
+      "chars": 46,
+      "audio_seconds": 14.88,
+      "gen_seconds": 6.19,
+      "rtf": 0.399,
+      "raw_seconds": 15.52
+    },
+    {
+      "index": 24,
+      "chars": 42,
+      "audio_seconds": 10.45,
+      "gen_seconds": 4.42,
+      "rtf": 0.4,
+      "raw_seconds": 11.04
+    },
+    {
+      "index": 25,
+      "chars": 25,
+      "audio_seconds": 7.15,
+      "gen_seconds": 2.92,
+      "rtf": 0.406,
+      "raw_seconds": 7.2
+    },
+    {
+      "index": 26,
+      "chars": 41,
+      "audio_seconds": 10.51,
+      "gen_seconds": 4.29,
+      "rtf": 0.401,
+      "raw_seconds": 10.72
+    },
+    {
+      "index": 27,
+      "chars": 23,
+      "audio_seconds": 4.76,
+      "gen_seconds": 1.97,
+      "rtf": 0.41,
+      "raw_seconds": 4.8
+    },
+    {
+      "index": 28,
+      "chars": 84,
+      "audio_seconds": 28.16,
+      "gen_seconds": 11.54,
+      "rtf": 0.397,
+      "raw_seconds": 29.04
+    },
+    {
+      "index": 29,
+      "chars": 17,
+      "audio_seconds": 4.78,
+      "gen_seconds": 2.57,
+      "rtf": 0.407,
+      "raw_seconds": 6.32
+    },
+    {
+      "index": 30,
+      "chars": 80,
+      "audio_seconds": 19.17,
+      "gen_seconds": 7.69,
+      "rtf": 0.399,
+      "raw_seconds": 19.28
+    },
+    {
+      "index": 31,
+      "chars": 12,
+      "audio_seconds": 3.49,
+      "gen_seconds": 1.57,
+      "rtf": 0.419,
+      "raw_seconds": 3.76
+    },
+    {
+      "index": 32,
+      "chars": 62,
+      "audio_seconds": 16.21,
+      "gen_seconds": 6.49,
+      "rtf": 0.398,
+      "raw_seconds": 16.32
+    },
+    {
+      "index": 33,
+      "chars": 10,
+      "audio_seconds": 2.68,
+      "gen_seconds": 1.76,
+      "rtf": 0.415,
+      "raw_seconds": 4.24
+    },
+    {
+      "index": 34,
+      "chars": 52,
+      "audio_seconds": 15.02,
+      "gen_seconds": 6.05,
+      "rtf": 0.398,
+      "raw_seconds": 15.2
+    },
+    {
+      "index": 35,
+      "chars": 49,
+      "audio_seconds": 12.29,
+      "gen_seconds": 5.04,
+      "rtf": 0.399,
+      "raw_seconds": 12.64
+    },
+    {
+      "index": 36,
+      "chars": 25,
+      "audio_seconds": 6.73,
+      "gen_seconds": 2.79,
+      "rtf": 0.405,
+      "raw_seconds": 6.88
+    },
+    {
+      "index": 37,
+      "chars": 86,
+      "audio_seconds": 23.55,
+      "gen_seconds": 9.52,
+      "rtf": 0.398,
+      "raw_seconds": 23.92
+    },
+    {
+      "index": 38,
+      "chars": 35,
+      "audio_seconds": 9.25,
+      "gen_seconds": 3.77,
+      "rtf": 0.402,
+      "raw_seconds": 9.36
+    },
+    {
+      "index": 39,
+      "chars": 6,
+      "audio_seconds": 1.27,
+      "gen_seconds": 0.72,
+      "rtf": 0.451,
+      "raw_seconds": 1.6
+    },
+    {
+      "index": 40,
+      "chars": 31,
+      "audio_seconds": 7.36,
+      "gen_seconds": 3.79,
+      "rtf": 0.401,
+      "raw_seconds": 9.44
+    },
+    {
+      "index": 41,
+      "chars": 71,
+      "audio_seconds": 19.28,
+      "gen_seconds": 7.76,
+      "rtf": 0.398,
+      "raw_seconds": 19.52
+    },
+    {
+      "index": 42,
+      "chars": 46,
+      "audio_seconds": 12.44,
+      "gen_seconds": 5.02,
+      "rtf": 0.4,
+      "raw_seconds": 12.56
+    },
+    {
+      "index": 43,
+      "chars": 68,
+      "audio_seconds": 16.77,
+      "gen_seconds": 6.81,
+      "rtf": 0.398,
+      "raw_seconds": 17.12
+    },
+    {
+      "index": 44,
+      "chars": 19,
+      "audio_seconds": 5.87,
+      "gen_seconds": 3.04,
+      "rtf": 0.404,
+      "raw_seconds": 7.52
+    },
+    {
+      "index": 45,
+      "chars": 33,
+      "audio_seconds": 7.04,
+      "gen_seconds": 3.19,
+      "rtf": 0.403,
+      "raw_seconds": 7.92
+    },
+    {
+      "index": 46,
+      "chars": 33,
+      "audio_seconds": 8.24,
+      "gen_seconds": 3.35,
+      "rtf": 0.403,
+      "raw_seconds": 8.32
+    },
+    {
+      "index": 47,
+      "chars": 25,
+      "audio_seconds": 7.95,
+      "gen_seconds": 3.35,
+      "rtf": 0.402,
+      "raw_seconds": 8.32
+    },
+    {
+      "index": 48,
+      "chars": 43,
+      "audio_seconds": 9.56,
+      "gen_seconds": 3.89,
+      "rtf": 0.402,
+      "raw_seconds": 9.68
+    },
+    {
+      "index": 49,
+      "chars": 45,
+      "audio_seconds": 11.02,
+      "gen_seconds": 4.67,
+      "rtf": 0.4,
+      "raw_seconds": 11.68
+    },
+    {
+      "index": 50,
+      "chars": 10,
+      "audio_seconds": 2.28,
+      "gen_seconds": 1.09,
+      "rtf": 0.426,
+      "raw_seconds": 2.56
+    }
+  ],
+  "total_chars": 2128,
+  "audio_seconds": 582.7,
+  "wall_seconds": 235.42,
+  "speed_vs_realtime": 2.48,
+  "raw_audio_seconds": 587.76,
+  "reassembled": false,
+  "wav": "ep01.wav",
+  "m4a": "ep01.m4a",
+  "generated_at": "2026-11-10T03:16:25"
+}

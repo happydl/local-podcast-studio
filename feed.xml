@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>本地优先 · Local First</title>
+    <link>https://happydl.github.io/local-podcast-studio</link>
+    <atom:link href="https://happydl.github.io/local-podcast-studio/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>用一台 Mac 和本地模型，把文字变成可以听的节目。每期一个实测：成本、速度、边界，以及踩过的坑。</description>
+    <language>zh-cn</language>
+    <itunes:author>happydl</itunes:author>
+    <itunes:summary>用一台 Mac 和本地模型，把文字变成可以听的节目。每期一个实测：成本、速度、边界，以及踩过的坑。</itunes:summary>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:category text="Technology"/>
+    <itunes:image href="https://happydl.github.io/local-podcast-studio/cover.jpg"/>
+    <image><url>https://happydl.github.io/local-podcast-studio/cover.jpg</url><title>本地优先 · Local First</title><link>https://happydl.github.io/local-podcast-studio</link></image>
+    <item>
+      <title>一台 Mac 做中文播客：本地语音合成的实测账本</title>
+      <description>一台 Mac 做中文播客：本地语音合成的实测账本</description>
+      <enclosure url="https://happydl.github.io/local-podcast-studio/ep01.m4a" length="2391185" type="audio/mp4"/>
+      <guid isPermaLink="false">https://happydl.github.io/local-podcast-studio/ep01.m4a</guid>
+      <pubDate>Mon, 09 Nov 2026 19:17:35 +0000</pubDate>
+      <itunes:duration>00:09:43</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>
