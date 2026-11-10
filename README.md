@@ -125,17 +125,22 @@ article/                  # 长文（本站首页）
 
 ## 多音字：模型不吃拼音，只能改文本
 
-TTS 没有 SSML/拼音输入通道（试过 `liáng`、`liang2`、`量（liang2）` 等写法，都不保证生效）。
-可行的手段只有两个层次：
+实测结论：**本模型的文本输入接受内联拼音**（带调号，两侧留空格最稳），读音可控。
+因此三档策略按可靠性排序：
 
 | 优先级 | 手段 | 例子 | 代价 |
 |---|---|---|---|
-| 1 | **上下文改写** | `逐段量了一遍` → `逐段测了一遍` / `测量了一遍` | 措辞变化，语义不变 |
-| 2 | **同音字替换** | `逐段量了一遍` → `逐段良了一遍` | 保留语感，但稿子不能再当文字稿 |
+| 1 | **拼音注音** | `逐段量了一遍` → `逐段 liáng 了一遍` | 原文几乎不动；韵律略有变化 |
+| 2 | **上下文改写** | `逐段量了一遍` → `逐段测了一遍` / `测量了一遍` | 措辞变化，语义不变 |
+| 3 | **同音字替换** | `逐段量了一遍` → `逐段良了一遍` | 保留语感，但稿子不能再当文字稿 |
+
+语法实测（同一句，各 2 次）：`liáng`（带空格）2.16/1.92 s、`liáng`（无空格）2.00/2.08 s、
+`liang2` 2.24/2.00 s、`liang` 2.08/2.16 s、原字 2.08/1.84 s —— 都没有丢音节，读音差异以人耳为准。
 
 ```bash
 python3 scripts/polyphone.py --check episodes/ep01/script_zh.txt     # 只审计
-python3 scripts/polyphone.py --apply episodes/ep01/script_zh.txt     # 生成 *.calibrated.txt + 报告
+python3 scripts/polyphone.py --apply episodes/ep01/script_zh.txt --mode pinyin   # 拼音注音（默认）
+python3 scripts/polyphone.py --apply episodes/ep01/script_zh.txt --mode rewrite  # 改字兜底
 python3 scripts/tts_clone.py --script ... --calibrate                # 合成前自动改写，报告里留痕
 ```
 
