@@ -115,12 +115,32 @@ scripts/build_site.py     # 文章 Markdown → 单页站点
 scripts/make_chapters.py  # 由逐段耗时反推章节时间轴
 scripts/experiment_pacing.py  # 语速抖动实验（24 次合成）
 scripts/tts_clone.py      # 克隆模式批量合成（参考音频钉死音色 + 逐段响度归一）
+scripts/polyphone.py      # 多音字校准：上下文改写 / 同音字替换 + 命中审计
 scripts/check_timbre.py   # VoiceDesign vs Clone 音色一致性 A/B
 scripts/diagnose_episode.py  # 成片逐段诊断：说话人相似度、基频、最差段定位
 experiment/pacing.json    # 实验原始记录
 episodes/ep01/            # 朗读稿、成品音频、逐段实测数据
 article/                  # 长文（本站首页）
 ```
+
+## 多音字：模型不吃拼音，只能改文本
+
+TTS 没有 SSML/拼音输入通道（试过 `liáng`、`liang2`、`量（liang2）` 等写法，都不保证生效）。
+可行的手段只有两个层次：
+
+| 优先级 | 手段 | 例子 | 代价 |
+|---|---|---|---|
+| 1 | **上下文改写** | `逐段量了一遍` → `逐段测了一遍` / `测量了一遍` | 措辞变化，语义不变 |
+| 2 | **同音字替换** | `逐段量了一遍` → `逐段良了一遍` | 保留语感，但稿子不能再当文字稿 |
+
+```bash
+python3 scripts/polyphone.py --check episodes/ep01/script_zh.txt     # 只审计
+python3 scripts/polyphone.py --apply episodes/ep01/script_zh.txt     # 生成 *.calibrated.txt + 报告
+python3 scripts/tts_clone.py --script ... --calibrate                # 合成前自动改写，报告里留痕
+```
+
+规则表当前 36 条（量/长/还/得/数/重/分/干/露/着/载/转/发/觉/血/薄/了/和/差 等），每条带读音、策略、置信度。
+**验收仍然靠耳朵**：曾尝试用基频斜率自动判声调，误差被句调和采样抖动淹没，不能当裁判。
 
 ## 已知边界（四个必须自己缝的坑）
 

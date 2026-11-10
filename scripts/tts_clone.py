@@ -41,6 +41,8 @@ def main() -> int:
     ap.add_argument("--select", choices=["rate", "speaker"], default="speaker",
                     help="多采样时按什么择优：rate=语速，speaker=与参考音色的相似度（默认）")
     ap.add_argument("--max-units", type=int, default=0)
+    ap.add_argument("--calibrate", action="store_true",
+                    help="合成前先跑多音字校准（polyphone.py），并把改写记录写进报告")
     args = ap.parse_args()
 
     import mlx.core as mx
@@ -54,7 +56,18 @@ def main() -> int:
     ref_emb = np.asarray(model.extract_speaker_embedding(mx.array(ref_audio_arr)[None, :]))
     print(f"参考音色向量已就绪（{len(ref_audio_arr) / ref_rate:.1f}s）", flush=True)
 
-    paragraphs = parse_script(Path(args.script))
+    script_path = Path(args.script)
+    calib = []
+    if args.calibrate:
+        from polyphone import apply as poly_apply
+        raw = script_path.read_text(encoding="utf-8")
+        new_text, calib = poly_apply(raw)
+        tmp = Path(f"{args.out}.calibrated.txt")
+        tmp.write_text(new_text, encoding="utf-8")
+        script_path = tmp
+        print(f"多音字校准：改写 {len(calib)} 处 → {tmp}", flush=True)
+
+    paragraphs = parse_script(script_path)
     units = pack(paragraphs)
     if args.max_units:
         units = units[: args.max_units]
@@ -124,6 +137,7 @@ def main() -> int:
         "ref_audio": str(args.ref),
         "ref_text": args.ref_text,
         "script": str(args.script),
+        "calibrations": calib,
         "units": rows,
         "total_chars": sum(len(u[0]) for u in units),
         "audio_seconds": round(duration, 2),
